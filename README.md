@@ -8,3 +8,4 @@ represent the result of a parsing operation.
 
 This library was designed to be used with the OmniEnvironment Platform project.
 It can however be used in any project that requires simple parsing result types.
+
