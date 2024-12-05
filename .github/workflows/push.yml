@@ -1,0 +1,46 @@
+name: push.yml
+on:
+  push:
+    branches:
+      - "*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set VERSION variable from tag or commit
+        run: |
+          set -e
+          git fetch --tags
+          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
+          if [[ -n "$TAG" && "&TAG =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          VERSION=$TAG
+          else
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          VERSION="0.0.0-$COMMIT_HASH"
+          fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      - name: Build
+        run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
+
+      - name: Test
+        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --logger "trx;LogFileName=test_results.trx" --no-build
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: "**/TestResults/*.trx"
+      
+      - name: Report test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: .NET Tests
+          path: "**/TestResults/*.trx"
+          reporter: dotnet-trx
