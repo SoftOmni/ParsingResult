@@ -7,7 +7,7 @@
         
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageId>ParsingResults</PackageId>
-        <Version>0.0.1</Version>
+        <Version>0.0.6</Version>
         <Authors>Jascha MERLE</Authors>
         <Description>
             This is a library that provides simple parsing result types.
@@ -19,7 +19,7 @@
             It can however be used in any project that requires simple parsing result types.
         </Description>
         <RepositoryUrl>
-            https://github.com/SoftLights/ParsingResults
+            https://github.com/SoftLights/ParsingResult
         </RepositoryUrl>
     </PropertyGroup>
 
