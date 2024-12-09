@@ -64,7 +64,7 @@ public class CreateFailure
 
     private static void PerformSimpleTest(string errorMessage, int failedIndex)
     {
-        ParsingResults.ParsingResult parsingResult = ParsingResults.ParsingResult.CreateFailure(5, errorMessage);
+        ParsingResults.ParsingResult parsingResult = ParsingResults.ParsingResult.CreateFailure(failedIndex, errorMessage);
 
         Assert.Equal(errorMessage, parsingResult.Message);
         Assert.Equal(failedIndex, parsingResult.Value);
