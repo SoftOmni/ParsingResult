@@ -20,10 +20,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ProgressiveParsingResult\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\ParsingResults\ParsingResults.csproj" />
     </ItemGroup>
 
