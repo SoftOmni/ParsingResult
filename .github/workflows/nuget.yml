@@ -45,9 +45,15 @@ jobs:
       - name: Pack
         run: dotnet pack --configuration Release /p:Version=${{ env.VERSION }} --no-build --output ./artifacts
         if: steps.test.outcome == 'success'
+      
+      - name: Setup NuGet
+        uses: actions/setup-dotnet@v4
+        with:
+          source-url: https://nuget.pkg.github.com/SoftLights/index.json
+        env:
+            NUGET_AUTH_TOKEN: ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }}
+        if: steps.test.outcome == 'success'
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --source https://nuget.pkg.github.com/SoftLights/index.json --api-key ${GITHUB_TOKEN}
-        env:
-          GITHUB_TOKEN: ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }}
+        run: dotnet nuget push ./artifacts/*.nupkg --skip-duplicate
         if: steps.test.outcome == 'success'
