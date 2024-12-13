@@ -55,5 +55,5 @@ jobs:
         if: steps.test.outcome == 'success'
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --skip-duplicate --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://nuget.pkg.github.com/SoftLights
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://nuget.pkg.github.com/SoftLights
         if: steps.test.outcome == 'success'
