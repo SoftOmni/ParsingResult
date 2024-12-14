@@ -46,7 +46,7 @@ jobs:
         run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} --logger "trx;LogFileName=test_results.trx" --no-build
 
       - name: Pack
-        run: dotnet pack --configuration Release /p:Version=${{ env.VERSION }} --no-build --output ./artifacts
+        run: dotnet pack --configuration Release --no-build --output ./artifacts
         if: steps.test.outcome == 'success'
 
       - name: Publish
