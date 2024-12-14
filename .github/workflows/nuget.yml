@@ -14,7 +14,7 @@ jobs:
           dotnet-version: '9.0.x'
           source-url: https://nuget.pkg.github.com/SoftLights/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }}
+          NUGET_AUTH_TOKEN: ${{ secrets.SOFTLIGHTS_NUGET_MASTER_KEY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,5 +50,5 @@ jobs:
         if: steps.test.outcome == 'success'
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.SOFTLIGHTS_NUGET_MASTER_KEY }} --source https://api.nuget.org/v3/index.json
         if: steps.test.outcome == 'success'
