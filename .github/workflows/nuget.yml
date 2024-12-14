@@ -29,7 +29,6 @@ jobs:
           set -e
           git fetch --tags
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          echo "Current tag: $TAG"
           if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             VERSION=$TAG
           else
@@ -51,5 +50,5 @@ jobs:
         if: steps.test.outcome == 'success'
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://api.nuget.org/v3/SoftLights
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://api.nuget.org/v3/index.json
         if: steps.test.outcome == 'success'
