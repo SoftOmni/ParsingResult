@@ -12,6 +12,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+          source-url: https://nuget.pkg.github.com/SoftLights/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,14 +49,6 @@ jobs:
         run: dotnet pack --configuration Release /p:Version=${{ env.VERSION }} --no-build --output ./artifacts
         if: steps.test.outcome == 'success'
 
-      - name: Setup NuGet
-        uses: actions/setup-dotnet@v4
-        with:
-          source-url: https://nuget.pkg.github.com/SoftLights/index.json
-        env:
-          NUGET_AUTH_TOKEN: ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }}
-        if: steps.test.outcome == 'success'
-
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://nuget.pkg.github.com/SoftLights
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.PARSING_RESULT_GITHUB_TOKEN_CICD }} --source https://api.nuget.org/v3/SoftLights
         if: steps.test.outcome == 'success'
