@@ -1207,7 +1207,7 @@ public class ToParsingResult
             progressiveParsingResult.IsSuccess);
         Assert.Equal(parsingResult.IsCustom, progressiveParsingResult.IsCustom);
 
-        Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
+        Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
 
     [Fact]
@@ -6721,7 +6721,7 @@ Assert.Equal(, progressiveParsingResult.NewIndex );}*/
             progressiveParsingResult.IsSuccess);
         Assert.Equal(parsingResult.IsCustom, progressiveParsingResult.IsCustom);
 
-        Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
+        Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
 
     [Fact]
