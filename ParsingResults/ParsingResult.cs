@@ -240,7 +240,7 @@ public sealed class ParsingResult
     /// <remarks>
     ///     If the parsing result is a custom one, this property will always return <see langword="false"/>.
     /// </remarks>
-    public bool IsFailure => Value > ValidValue && !_isCustom;
+    public bool IsFailure => Value != ValidValue && !_isCustom;
 
     /// <summary>
     ///     Indicates whether the parsing result is a custom one.
