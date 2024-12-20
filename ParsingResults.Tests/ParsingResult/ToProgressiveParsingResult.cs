@@ -41,7 +41,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_NegativeIndex()
     {
@@ -57,7 +57,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_NegativeValue()
     {
@@ -73,7 +73,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_PositiveValue()
     {
@@ -89,7 +89,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_Zero()
     {
@@ -105,7 +105,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_One()
     {
@@ -121,7 +121,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_NegativeOne()
     {
@@ -137,7 +137,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_BigPositive()
     {
@@ -153,7 +153,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_BigNegative()
     {
@@ -169,7 +169,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Success_ValidValue()
     {
@@ -202,7 +202,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_NegativeIndex()
     {
@@ -219,7 +219,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_NegativeValue()
     {
@@ -236,7 +236,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_PositiveValue()
     {
@@ -253,7 +253,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_Zero()
     {
@@ -270,7 +270,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_One()
     {
@@ -287,7 +287,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_NegativeOne()
     {
@@ -304,7 +304,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_BigPositive()
     {
@@ -321,7 +321,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_BigNegative()
     {
@@ -338,7 +338,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithFailedIndex_ValidValue()
     {
@@ -372,7 +372,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_NegativeIndex()
     {
@@ -389,7 +389,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_NegativeValue()
     {
@@ -406,7 +406,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_PositiveValue()
     {
@@ -423,7 +423,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_Zero()
     {
@@ -440,7 +440,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_One()
     {
@@ -457,7 +457,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_NegativeOne()
     {
@@ -474,7 +474,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_BigPositive()
     {
@@ -491,7 +491,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_BigNegative()
     {
@@ -508,7 +508,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeIndex_ValidValue()
     {
@@ -542,7 +542,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_NegativeIndex()
     {
@@ -559,7 +559,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_NegativeValue()
     {
@@ -576,7 +576,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_PositiveValue()
     {
@@ -593,7 +593,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_Zero()
     {
@@ -610,7 +610,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_One()
     {
@@ -627,7 +627,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_NegativeOne()
     {
@@ -644,7 +644,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_BigPositive()
     {
@@ -661,7 +661,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_BigNegative()
     {
@@ -678,7 +678,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithPositiveValue_ValidValue()
     {
@@ -712,7 +712,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_NegativeIndex()
     {
@@ -729,7 +729,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_PositiveValue()
     {
@@ -746,7 +746,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_Zero()
     {
@@ -763,7 +763,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_One()
     {
@@ -780,7 +780,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_NegativeOne()
     {
@@ -797,7 +797,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_BigPositive()
     {
@@ -814,7 +814,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_BigNegative()
     {
@@ -831,7 +831,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeValue_ValidValue()
     {
@@ -864,7 +864,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_NegativeIndex()
     {
@@ -880,7 +880,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_NegativeValue()
     {
@@ -896,7 +896,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_PositiveValue()
     {
@@ -912,7 +912,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_Zero()
     {
@@ -928,7 +928,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_One()
     {
@@ -944,7 +944,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_NegativeOne()
     {
@@ -960,7 +960,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_BigPositive()
     {
@@ -976,7 +976,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_BigNegative()
     {
@@ -992,7 +992,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithZero_ValidValue()
     {
@@ -1024,7 +1024,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_NegativeIndex()
     {
@@ -1040,7 +1040,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_NegativeValue()
     {
@@ -1056,7 +1056,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_PositiveValue()
     {
@@ -1072,7 +1072,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_Zero()
     {
@@ -1088,7 +1088,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_One()
     {
@@ -1104,7 +1104,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_NegativeOne()
     {
@@ -1120,7 +1120,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_BigPositive()
     {
@@ -1136,7 +1136,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_BigNegative()
     {
@@ -1152,7 +1152,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithOne_ValidValue()
     {
@@ -1168,7 +1168,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(ValidValue, progressiveParsingResult.NewIndex);
     }
-    
+
     /*[Fact]
     public void Failure_WithNegativeOne_FailedIndex()
     {
@@ -1185,7 +1185,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_NegativeIndex()
     {
@@ -1202,7 +1202,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_NegativeValue()
     {
@@ -1219,7 +1219,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_PositiveValue()
     {
@@ -1236,7 +1236,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_Zero()
     {
@@ -1253,7 +1253,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_One()
     {
@@ -1270,7 +1270,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_NegativeOne()
     {
@@ -1287,7 +1287,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_BigPositive()
     {
@@ -1304,7 +1304,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_BigNegative()
     {
@@ -1321,7 +1321,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithNegativeOne_ValidValue()
     {
@@ -1338,7 +1338,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(ValidValue, progressiveParsingResult.NewIndex);
     }*/
-    
+
     [Fact]
     public void Failure_WithBigPositive_FailedIndex()
     {
@@ -1355,7 +1355,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_NegativeIndex()
     {
@@ -1372,7 +1372,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_NegativeValue()
     {
@@ -1389,7 +1389,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_PositiveValue()
     {
@@ -1406,7 +1406,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_Zero()
     {
@@ -1423,7 +1423,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_One()
     {
@@ -1440,7 +1440,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_NegativeOne()
     {
@@ -1457,7 +1457,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_BigPositive()
     {
@@ -1474,7 +1474,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_BigNegative()
     {
@@ -1491,7 +1491,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigPositive_ValidValue()
     {
@@ -1525,7 +1525,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_NegativeIndex()
     {
@@ -1542,7 +1542,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_NegativeValue()
     {
@@ -1559,7 +1559,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_PositiveValue()
     {
@@ -1576,7 +1576,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_Zero()
     {
@@ -1593,7 +1593,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_One()
     {
@@ -1610,7 +1610,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_NegativeOne()
     {
@@ -1627,7 +1627,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_BigPositive()
     {
@@ -1644,7 +1644,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_BigNegative()
     {
@@ -1661,7 +1661,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Failure_WithBigNegative_ValidValue()
     {
@@ -1695,7 +1695,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_NegativeIndex()
     {
@@ -1712,7 +1712,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_NegativeValue()
     {
@@ -1729,7 +1729,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_PositiveValue()
     {
@@ -1746,7 +1746,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_Zero()
     {
@@ -1763,7 +1763,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_One()
     {
@@ -1780,7 +1780,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_NegativeOne()
     {
@@ -1797,7 +1797,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_BigPositive()
     {
@@ -1814,7 +1814,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_BigNegative()
     {
@@ -1831,7 +1831,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithFailedIndex_ValidValue()
     {
@@ -2035,7 +2035,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_NegativeIndex()
     {
@@ -2052,7 +2052,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_NegativeValue()
     {
@@ -2069,7 +2069,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_PositiveValue()
     {
@@ -2086,7 +2086,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_Zero()
     {
@@ -2103,7 +2103,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_One()
     {
@@ -2120,7 +2120,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_NegativeOne()
     {
@@ -2137,7 +2137,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_BigPositive()
     {
@@ -2154,7 +2154,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_BigNegative()
     {
@@ -2171,7 +2171,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithPositiveValue_ValidValue()
     {
@@ -2205,7 +2205,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_NegativeIndex()
     {
@@ -2222,7 +2222,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_NegativeValue()
     {
@@ -2239,7 +2239,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_PositiveValue()
     {
@@ -2256,7 +2256,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_Zero()
     {
@@ -2273,7 +2273,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_One()
     {
@@ -2290,7 +2290,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_NegativeOne()
     {
@@ -2307,7 +2307,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_BigPositive()
     {
@@ -2324,7 +2324,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_BigNegative()
     {
@@ -2341,7 +2341,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeValue_ValidValue()
     {
@@ -2374,7 +2374,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_NegativeIndex()
     {
@@ -2390,7 +2390,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_NegativeValue()
     {
@@ -2406,7 +2406,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_PositiveValue()
     {
@@ -2422,7 +2422,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_Zero()
     {
@@ -2438,7 +2438,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_One()
     {
@@ -2454,7 +2454,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_NegativeOne()
     {
@@ -2470,7 +2470,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_BigPositive()
     {
@@ -2486,7 +2486,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_BigNegative()
     {
@@ -2502,7 +2502,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithZero_ValidValue()
     {
@@ -2534,7 +2534,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_NegativeIndex()
     {
@@ -2550,7 +2550,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_NegativeValue()
     {
@@ -2566,7 +2566,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_PositiveValue()
     {
@@ -2582,7 +2582,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_Zero()
     {
@@ -2598,7 +2598,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_One()
     {
@@ -2614,7 +2614,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_NegativeOne()
     {
@@ -2630,7 +2630,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_BigPositive()
     {
@@ -2646,7 +2646,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_BigNegative()
     {
@@ -2662,7 +2662,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithOne_ValidValue()
     {
@@ -2678,7 +2678,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(ValidValue, progressiveParsingResult.NewIndex);
     }
-    
+
     /*[Fact]
     public void FailureEmptyString_WithNegativeOne_FailedIndex()
     {
@@ -2695,7 +2695,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_NegativeIndex()
     {
@@ -2712,7 +2712,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_NegativeValue()
     {
@@ -2729,7 +2729,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_PositiveValue()
     {
@@ -2746,7 +2746,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_Zero()
     {
@@ -2763,7 +2763,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_One()
     {
@@ -2780,7 +2780,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_NegativeOne()
     {
@@ -2797,7 +2797,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_BigPositive()
     {
@@ -2814,7 +2814,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_BigNegative()
     {
@@ -2831,7 +2831,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithNegativeOne_ValidValue()
     {
@@ -2865,7 +2865,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_NegativeIndex()
     {
@@ -2882,7 +2882,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_NegativeValue()
     {
@@ -2899,7 +2899,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_PositiveValue()
     {
@@ -2916,7 +2916,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_Zero()
     {
@@ -2933,7 +2933,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_One()
     {
@@ -2950,7 +2950,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_NegativeOne()
     {
@@ -2967,7 +2967,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_BigPositive()
     {
@@ -2984,7 +2984,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_BigNegative()
     {
@@ -3001,7 +3001,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigPositive_ValidValue()
     {
@@ -3035,7 +3035,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_NegativeIndex()
     {
@@ -3052,7 +3052,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_NegativeValue()
     {
@@ -3069,7 +3069,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_PositiveValue()
     {
@@ -3086,7 +3086,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_Zero()
     {
@@ -3103,7 +3103,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_One()
     {
@@ -3120,7 +3120,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_NegativeOne()
     {
@@ -3137,7 +3137,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_BigPositive()
     {
@@ -3154,7 +3154,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_BigNegative()
     {
@@ -3171,7 +3171,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void FailureEmptyString_WithBigNegative_ValidValue()
     {
@@ -3205,7 +3205,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_NegativeIndex()
     {
@@ -3222,7 +3222,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_NegativeValue()
     {
@@ -3239,7 +3239,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_PositiveValue()
     {
@@ -3256,7 +3256,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_Zero()
     {
@@ -3273,7 +3273,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_One()
     {
@@ -3290,7 +3290,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_NegativeOne()
     {
@@ -3307,7 +3307,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_BigPositive()
     {
@@ -3324,7 +3324,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_BigNegative()
     {
@@ -3341,7 +3341,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithFailedIndex_ValidValue()
     {
@@ -3375,7 +3375,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_NegativeIndex()
     {
@@ -3392,7 +3392,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_NegativeValue()
     {
@@ -3409,7 +3409,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_PositiveValue()
     {
@@ -3426,7 +3426,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_Zero()
     {
@@ -3443,7 +3443,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_One()
     {
@@ -3460,7 +3460,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_NegativeOne()
     {
@@ -3477,7 +3477,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_BigPositive()
     {
@@ -3494,7 +3494,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_BigNegative()
     {
@@ -3511,7 +3511,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeIndex_ValidValue()
     {
@@ -3545,7 +3545,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_NegativeIndex()
     {
@@ -3562,7 +3562,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_NegativeValue()
     {
@@ -3579,7 +3579,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_PositiveValue()
     {
@@ -3596,7 +3596,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_Zero()
     {
@@ -3613,7 +3613,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_One()
     {
@@ -3630,7 +3630,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_NegativeOne()
     {
@@ -3647,7 +3647,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_BigPositive()
     {
@@ -3664,7 +3664,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_BigNegative()
     {
@@ -3681,7 +3681,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithPositiveValue_ValidValue()
     {
@@ -3715,7 +3715,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_NegativeIndex()
     {
@@ -3732,7 +3732,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_NegativeValue()
     {
@@ -3749,7 +3749,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_PositiveValue()
     {
@@ -3766,7 +3766,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_Zero()
     {
@@ -3783,7 +3783,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_One()
     {
@@ -3800,7 +3800,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_NegativeOne()
     {
@@ -3817,7 +3817,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_BigPositive()
     {
@@ -3834,7 +3834,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_BigNegative()
     {
@@ -3851,7 +3851,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeValue_ValidValue()
     {
@@ -3884,7 +3884,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_NegativeIndex()
     {
@@ -3900,7 +3900,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_NegativeValue()
     {
@@ -3916,7 +3916,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_PositiveValue()
     {
@@ -3932,7 +3932,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_Zero()
     {
@@ -3948,7 +3948,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_One()
     {
@@ -3964,7 +3964,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_NegativeOne()
     {
@@ -3980,7 +3980,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_BigPositive()
     {
@@ -3996,7 +3996,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_BigNegative()
     {
@@ -4012,7 +4012,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithZero_ValidValue()
     {
@@ -4044,7 +4044,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_NegativeIndex()
     {
@@ -4060,7 +4060,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_NegativeValue()
     {
@@ -4076,7 +4076,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_PositiveValue()
     {
@@ -4092,7 +4092,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_Zero()
     {
@@ -4108,7 +4108,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_One()
     {
@@ -4124,7 +4124,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_NegativeOne()
     {
@@ -4140,7 +4140,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_BigPositive()
     {
@@ -4156,7 +4156,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_BigNegative()
     {
@@ -4172,7 +4172,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithOne_ValidValue()
     {
@@ -4205,7 +4205,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_NegativeIndex()
     {
@@ -4222,7 +4222,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_NegativeValue()
     {
@@ -4239,7 +4239,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_PositiveValue()
     {
@@ -4256,7 +4256,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_Zero()
     {
@@ -4273,7 +4273,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_One()
     {
@@ -4290,7 +4290,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_NegativeOne()
     {
@@ -4307,7 +4307,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_BigPositive()
     {
@@ -4324,7 +4324,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_BigNegative()
     {
@@ -4341,7 +4341,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithNegativeOne_ValidValue()
     {
@@ -4375,7 +4375,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_NegativeIndex()
     {
@@ -4392,7 +4392,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_NegativeValue()
     {
@@ -4409,7 +4409,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_PositiveValue()
     {
@@ -4426,7 +4426,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_Zero()
     {
@@ -4443,7 +4443,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_One()
     {
@@ -4460,7 +4460,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_NegativeOne()
     {
@@ -4477,7 +4477,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_BigPositive()
     {
@@ -4494,7 +4494,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_BigNegative()
     {
@@ -4511,7 +4511,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigPositive_ValidValue()
     {
@@ -4545,7 +4545,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_NegativeIndex()
     {
@@ -4562,7 +4562,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_NegativeValue()
     {
@@ -4579,7 +4579,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_PositiveValue()
     {
@@ -4596,7 +4596,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_Zero()
     {
@@ -4613,7 +4613,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_One()
     {
@@ -4630,7 +4630,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_NegativeOne()
     {
@@ -4647,7 +4647,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_BigPositive()
     {
@@ -4664,7 +4664,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_BigNegative()
     {
@@ -4681,7 +4681,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithBigNegative_ValidValue()
     {
@@ -4714,7 +4714,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_NegativeIndex()
     {
@@ -4730,7 +4730,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_NegativeValue()
     {
@@ -4746,7 +4746,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_PositiveValue()
     {
@@ -4762,7 +4762,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_Zero()
     {
@@ -4778,7 +4778,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_One()
     {
@@ -4794,7 +4794,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_NegativeOne()
     {
@@ -4810,7 +4810,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_BigPositive()
     {
@@ -4826,7 +4826,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_BigNegative()
     {
@@ -4842,7 +4842,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void Custom_WithValidValue_ValidValue()
     {
@@ -4874,7 +4874,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_NegativeIndex()
     {
@@ -4890,7 +4890,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_NegativeValue()
     {
@@ -4906,7 +4906,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_PositiveValue()
     {
@@ -4922,7 +4922,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_Zero()
     {
@@ -4938,7 +4938,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_One()
     {
@@ -4954,7 +4954,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_NegativeOne()
     {
@@ -4970,7 +4970,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_BigPositive()
     {
@@ -4986,7 +4986,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_BigNegative()
     {
@@ -5002,7 +5002,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithFailedIndex_ValidValue()
     {
@@ -5052,7 +5052,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_NegativeIndex()
     {
@@ -5069,7 +5069,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_NegativeValue()
     {
@@ -5086,7 +5086,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_PositiveValue()
     {
@@ -5103,7 +5103,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_Zero()
     {
@@ -5120,7 +5120,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_One()
     {
@@ -5137,7 +5137,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_NegativeOne()
     {
@@ -5154,7 +5154,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_BigPositive()
     {
@@ -5171,7 +5171,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_BigNegative()
     {
@@ -5188,7 +5188,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithPositiveValue_ValidValue()
     {
@@ -5222,7 +5222,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_NegativeIndex()
     {
@@ -5239,7 +5239,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_NegativeValue()
     {
@@ -5256,7 +5256,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_PositiveValue()
     {
@@ -5273,7 +5273,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_Zero()
     {
@@ -5290,7 +5290,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_One()
     {
@@ -5307,7 +5307,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_NegativeOne()
     {
@@ -5324,7 +5324,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_BigPositive()
     {
@@ -5341,7 +5341,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_BigNegative()
     {
@@ -5358,7 +5358,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeValue_ValidValue()
     {
@@ -5391,7 +5391,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_NegativeIndex()
     {
@@ -5407,7 +5407,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_NegativeValue()
     {
@@ -5423,7 +5423,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_PositiveValue()
     {
@@ -5439,7 +5439,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_Zero()
     {
@@ -5455,7 +5455,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_One()
     {
@@ -5471,7 +5471,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_NegativeOne()
     {
@@ -5487,7 +5487,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_BigPositive()
     {
@@ -5503,7 +5503,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_BigNegative()
     {
@@ -5519,7 +5519,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithZero_ValidValue()
     {
@@ -5551,7 +5551,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_NegativeIndex()
     {
@@ -5567,7 +5567,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_NegativeValue()
     {
@@ -5583,7 +5583,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_PositiveValue()
     {
@@ -5599,7 +5599,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_Zero()
     {
@@ -5615,7 +5615,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_One()
     {
@@ -5631,7 +5631,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_NegativeOne()
     {
@@ -5647,7 +5647,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_BigPositive()
     {
@@ -5663,7 +5663,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_BigNegative()
     {
@@ -5679,7 +5679,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithOne_ValidValue()
     {
@@ -5712,7 +5712,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_NegativeIndex()
     {
@@ -5729,7 +5729,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_NegativeValue()
     {
@@ -5746,7 +5746,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_PositiveValue()
     {
@@ -5763,7 +5763,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_Zero()
     {
@@ -5780,7 +5780,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_One()
     {
@@ -5797,7 +5797,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_NegativeOne()
     {
@@ -5814,7 +5814,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_BigPositive()
     {
@@ -5831,7 +5831,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_BigNegative()
     {
@@ -5848,7 +5848,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithNegativeOne_ValidValue()
     {
@@ -5882,7 +5882,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_NegativeIndex()
     {
@@ -5899,7 +5899,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_NegativeValue()
     {
@@ -5916,7 +5916,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_PositiveValue()
     {
@@ -5933,7 +5933,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_Zero()
     {
@@ -5950,7 +5950,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_One()
     {
@@ -5967,7 +5967,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_NegativeOne()
     {
@@ -5984,7 +5984,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_BigPositive()
     {
@@ -6001,7 +6001,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_BigNegative()
     {
@@ -6018,7 +6018,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigPositive_ValidValue()
     {
@@ -6052,7 +6052,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_NegativeIndex()
     {
@@ -6069,7 +6069,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_NegativeValue()
     {
@@ -6086,7 +6086,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_PositiveValue()
     {
@@ -6103,7 +6103,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_Zero()
     {
@@ -6120,7 +6120,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_One()
     {
@@ -6137,7 +6137,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_NegativeOne()
     {
@@ -6154,7 +6154,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_BigPositive()
     {
@@ -6171,7 +6171,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_BigNegative()
     {
@@ -6188,7 +6188,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigNegative, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithBigNegative_ValidValue()
     {
@@ -6221,7 +6221,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(FailedIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_NegativeIndex()
     {
@@ -6237,7 +6237,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeIndex, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_NegativeValue()
     {
@@ -6253,7 +6253,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(NegativeValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_PositiveValue()
     {
@@ -6269,7 +6269,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(PositiveValue, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_Zero()
     {
@@ -6285,7 +6285,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestZero, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_One()
     {
@@ -6301,7 +6301,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_NegativeOne()
     {
@@ -6317,7 +6317,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestNegativeOne, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_BigPositive()
     {
@@ -6333,7 +6333,7 @@ public class ToProgressiveParsingResult
 
         Assert.Equal(TestBigPositive, progressiveParsingResult.NewIndex);
     }
-    
+
     [Fact]
     public void CustomEmptyString_WithValidValue_BigNegative()
     {

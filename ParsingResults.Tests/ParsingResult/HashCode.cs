@@ -3,13 +3,13 @@ namespace ParsingResults.Tests.ParsingResult;
 public class HashCode
 {
     private const string ErrorMessage = "ERROR: this isn't right";
-    
+
     private static readonly string EmptyString = string.Empty;
 
     private const int FailedIndex = 5;
-    
+
     private const int NegativeIndex = -87;
-    
+
     [Fact]
     public void Success_Success()
     {
@@ -20,7 +20,7 @@ public class HashCode
 
         Assert.Equal(success.GetHashCode(), success2.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_RegularFailure()
     {
@@ -32,7 +32,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), failure.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_RegularEmptyStringFailure()
     {
@@ -44,7 +44,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), failure.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_NegativeIndexFailure()
     {
@@ -56,7 +56,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), failure.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_NegativeIndexEmptyStringFailure()
     {
@@ -68,7 +68,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), failure.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_RegularCustom()
     {
@@ -80,7 +80,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_RegularEmptyStringCustom()
     {
@@ -92,7 +92,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_NegativeIndexCustom()
     {
@@ -104,7 +104,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_NegativeIndexEmptyStringCustom()
     {
@@ -116,7 +116,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_ValidValueCustom()
     {
@@ -128,7 +128,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void Success_ValidValueEmptyStringCustom()
     {
@@ -140,7 +140,7 @@ public class HashCode
 
         Assert.NotEqual(success.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_RegularFailure()
     {
@@ -153,7 +153,7 @@ public class HashCode
 
         Assert.Equal(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_RegularEmptyStringFailure()
     {
@@ -166,7 +166,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_NegativeIndexFailure()
     {
@@ -179,7 +179,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_NegativeIndexEmptyStringFailure()
     {
@@ -192,7 +192,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_RegularCustom()
     {
@@ -205,7 +205,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_RegularEmptyStringCustom()
     {
@@ -218,7 +218,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_NegativeIndexCustom()
     {
@@ -231,7 +231,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_NegativeIndexEmptyStringCustom()
     {
@@ -244,7 +244,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_ValidValueCustom()
     {
@@ -257,7 +257,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularFailure_ValidValueEmptyStringCustom()
     {
@@ -270,7 +270,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_RegularEmptyStringFailure()
     {
@@ -283,7 +283,7 @@ public class HashCode
 
         Assert.Equal(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_NegativeIndexFailure()
     {
@@ -296,7 +296,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_NegativeIndexEmptyStringFailure()
     {
@@ -309,7 +309,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_RegularCustom()
     {
@@ -322,7 +322,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_RegularEmptyStringCustom()
     {
@@ -335,7 +335,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_NegativeIndexCustom()
     {
@@ -348,7 +348,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_NegativeIndexEmptyStringCustom()
     {
@@ -361,7 +361,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_ValidValueCustom()
     {
@@ -374,7 +374,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringFailure_ValidValueEmptyStringCustom()
     {
@@ -387,7 +387,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_NegativeIndexFailure()
     {
@@ -400,7 +400,7 @@ public class HashCode
 
         Assert.Equal(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_NegativeIndexEmptyStringFailure()
     {
@@ -413,7 +413,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_RegularCustom()
     {
@@ -426,7 +426,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_RegularEmptyStringCustom()
     {
@@ -439,7 +439,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_NegativeIndexCustom()
     {
@@ -452,7 +452,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_NegativeIndexEmptyStringCustom()
     {
@@ -465,7 +465,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_ValidValueCustom()
     {
@@ -478,7 +478,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexFailure_ValidValueEmptyStringCustom()
     {
@@ -491,7 +491,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_NegativeIndexEmptyStringFailure()
     {
@@ -504,7 +504,7 @@ public class HashCode
 
         Assert.Equal(failure.GetHashCode(), failure2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_RegularCustom()
     {
@@ -517,7 +517,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_RegularEmptyStringCustom()
     {
@@ -530,7 +530,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_NegativeIndexCustom()
     {
@@ -543,7 +543,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_NegativeIndexEmptyStringCustom()
     {
@@ -556,7 +556,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_ValidValueCustom()
     {
@@ -569,7 +569,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringFailure_ValidValueEmptyStringCustom()
     {
@@ -582,7 +582,7 @@ public class HashCode
 
         Assert.NotEqual(failure.GetHashCode(), custom.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_RegularCustom()
     {
@@ -595,7 +595,7 @@ public class HashCode
 
         Assert.Equal(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_RegularEmptyStringCustom()
     {
@@ -608,7 +608,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_NegativeIndexCustom()
     {
@@ -621,7 +621,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_NegativeIndexEmptyStringCustom()
     {
@@ -634,7 +634,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_ValidValueCustom()
     {
@@ -647,7 +647,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularCustom_ValidValueEmptyStringCustom()
     {
@@ -660,7 +660,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringCustom_RegularEmptyStringCustom()
     {
@@ -673,7 +673,7 @@ public class HashCode
 
         Assert.Equal(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringCustom_NegativeIndexCustom()
     {
@@ -686,7 +686,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringCustom_NegativeIndexEmptyStringCustom()
     {
@@ -699,7 +699,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringCustom_ValidValueCustom()
     {
@@ -712,7 +712,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void RegularEmptyStringCustom_ValidValueEmptyStringCustom()
     {
@@ -725,7 +725,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexCustom_NegativeIndexCustom()
     {
@@ -738,7 +738,7 @@ public class HashCode
 
         Assert.Equal(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexCustom_NegativeIndexEmptyStringCustom()
     {
@@ -751,7 +751,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexCustom_ValidValueCustom()
     {
@@ -764,7 +764,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexCustom_ValidValueEmptyStringCustom()
     {
@@ -777,7 +777,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringCustom_NegativeIndexEmptyStringCustom()
     {
@@ -790,7 +790,7 @@ public class HashCode
 
         Assert.Equal(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringCustom_ValidValueCustom()
     {
@@ -803,7 +803,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void NegativeIndexEmptyStringCustom_ValidValueEmptyStringCustom()
     {
@@ -816,7 +816,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void ValidValueCustom_ValidValueCustom()
     {
@@ -829,7 +829,7 @@ public class HashCode
 
         Assert.Equal(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void ValidValueCustom_ValidValueEmptyStringCustom()
     {
@@ -842,7 +842,7 @@ public class HashCode
 
         Assert.NotEqual(custom.GetHashCode(), custom2.GetHashCode());
     }
-    
+
     [Fact]
     public void ValidValueEmptyStringCustom_ValidValueEmptyStringCustom()
     {

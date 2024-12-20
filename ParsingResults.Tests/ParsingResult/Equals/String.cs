@@ -1,19 +1,20 @@
 // ReSharper disable SuspiciousTypeConversion.Global
+
 namespace ParsingResults.Tests.ParsingResult.Equals;
 
 public class String
 {
     private const string ErrorMessage = "ERROR: this isn't right";
-    
+
     private const string DifferentErrorMessage =
         "ERROR: this isn't right either";
-    
+
     private static readonly string EmptyString = string.Empty;
 
     private const int FailedIndex = 5;
 
     private const int NegativeIndex = -87;
-    
+
     [Fact]
     public void Success_EmptyString()
     {

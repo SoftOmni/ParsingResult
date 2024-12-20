@@ -1,12 +1,13 @@
 // ReSharper disable SuspiciousTypeConversion.Global
+
 namespace ParsingResults.Tests.ParsingResult.Equals;
 
 public class Integer
 {
     private const string ErrorMessage = "ERROR: this isn't right";
-    
+
     private static readonly string EmptyString = string.Empty;
-    
+
     private const int PositiveValue = 5;
 
     private const int NegativeValue = -5;
@@ -22,7 +23,7 @@ public class Integer
     private const int TestBigNegative = -17;
 
     private const int ValidValue = ParsingResults.ParsingResult.ValidValue;
-    
+
     [Fact]
     public void Success_PositiveResult()
     {

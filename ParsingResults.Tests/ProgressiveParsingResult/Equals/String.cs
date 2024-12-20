@@ -2937,7 +2937,7 @@ public class String
         ParsingResults.ProgressiveParsingResult parsingResult =
             ParsingResults.ProgressiveParsingResult.CreateFailure(
                 TestNegativeOne, ErrorMessage);
-        
+
         Assert.True(parsingResult.Equals(ErrorMessage));
     }
 
