@@ -577,7 +577,7 @@ public sealed class ParsingResult
     /// </returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(Value, Message);
+        return HashCode.Combine(Value, Message, _isCustom);
     }
 
     /// <summary>
@@ -609,12 +609,9 @@ public sealed class ParsingResult
             return "Successful parsing result";
         }
 
-        if (IsFailure)
-        {
-            return $"Failed parsing result at index {Value} in \"{Message}\"";
-        }
-
-        return $"Custom parsing result at index {Value} in \"{Message}\"";
+        return IsFailure
+            ? $"Failed parsing result at index {Value} in \"{Message}\""
+            : $"Custom parsing result at index {Value} in \"{Message}\"";
     }
 
     /// <summary>
