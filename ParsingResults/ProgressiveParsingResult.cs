@@ -543,7 +543,7 @@ public sealed class ProgressiveParsingResult
     /// </returns>
     public override int GetHashCode()
     {
-        return HashCode.Combine(Value, Message);
+        return HashCode.Combine(Value, Message, NewIndex, _isCustom);
     }
 
     /// <summary>
