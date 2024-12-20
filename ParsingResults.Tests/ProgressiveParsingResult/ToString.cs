@@ -24,7 +24,7 @@ public class ToString
 
     private const int TestBigNegative = -17;
 
-    private const int ValidValue = ParsingResults.ParsingResult.ValidValue;
+    private const int ValidValue = ParsingResults.ProgressiveParsingResult.ValidValue;
 
     [Fact]
     public void Success_FailedIndex()
