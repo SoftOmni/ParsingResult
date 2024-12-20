@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ParsingResults\ParsingResults.csproj" />
+        <ProjectReference Include="..\ParsingResults\ParsingResults.csproj"/>
     </ItemGroup>
 
 </Project>
