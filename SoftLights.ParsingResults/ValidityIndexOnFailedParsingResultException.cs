@@ -1,4 +1,4 @@
-﻿namespace ParsingResults;
+﻿namespace SoftLights.ParsingResults;
 
 /// <summary>
 ///     An exception that is thrown when a failed ParsingResult instance is created with a problematic index value
