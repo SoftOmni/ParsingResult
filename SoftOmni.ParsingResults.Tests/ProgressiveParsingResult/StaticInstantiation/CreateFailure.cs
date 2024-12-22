@@ -1614,181 +1614,93 @@ public class CreateFailure
         Assert.Equal(ValidValue, parsingResult.NewIndex);
     }
 
-    /*[Fact]
+    [Fact]
     public void Failure_WithValidValue_Default()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(-2, parsingResult.NewIndex);
+                ErrorMessage));
     }
 
     [Fact]
     public void Failure_WithValidValue_FailedIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, FailedIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(FailedIndex, parsingResult.NewIndex);
+                ErrorMessage, FailedIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_NegativeIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, NegativeIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(NegativeIndex, parsingResult.NewIndex);
+                ErrorMessage, NegativeIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_PositiveValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, PositiveValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(PositiveValue, parsingResult.NewIndex);
+                ErrorMessage, PositiveValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_NegativeValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, NegativeValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(NegativeValue, parsingResult.NewIndex);
+                ErrorMessage, NegativeValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_TestZero()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, TestZero);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(TestZero, parsingResult.NewIndex);
+                ErrorMessage, TestZero));
     }
 
     [Fact]
     public void Failure_WithValidValue_TestOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, TestOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(TestOne, parsingResult.NewIndex);
+                ErrorMessage, TestOne));
     }
 
     [Fact]
     public void Failure_WithValidValue_TestNegativeOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, TestNegativeOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(TestNegativeOne, parsingResult.NewIndex);
+                ErrorMessage, TestNegativeOne));
     }
 
     [Fact]
     public void Failure_WithValidValue_TestBigPositive()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, TestBigPositive);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(TestBigPositive, parsingResult.NewIndex);
+                ErrorMessage, TestBigPositive));
     }
 
     [Fact]
     public void Failure_WithValidValue_TestBigNegative()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, TestBigNegative);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(TestBigNegative, parsingResult.NewIndex);
+                ErrorMessage, TestBigNegative));
     }
 
     [Fact]
     public void Failure_WithValidValue_ValidValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                ErrorMessage, ValidValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(ErrorMessage, parsingResult.Message);
-        Assert.Equal(ValidValue, parsingResult.NewIndex);
-    }*/
+                ErrorMessage, ValidValue));
+    }
 
     [Fact]
     public void Failure_WithFailedIndex_WithDifferentErrorMessage_Default()
@@ -3425,184 +3337,96 @@ public class CreateFailure
         Assert.Equal(ValidValue, parsingResult.NewIndex);
     }
 
-    /*[Fact]
+    [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_Default()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(-2, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_FailedIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, FailedIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(FailedIndex, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, FailedIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_NegativeIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, NegativeIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(NegativeIndex, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, NegativeIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_PositiveValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, PositiveValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(PositiveValue, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, PositiveValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_NegativeValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, NegativeValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(NegativeValue, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, NegativeValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_TestZero()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, TestZero);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(TestZero, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, TestZero));
     }
 
     [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_TestOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, TestOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(TestOne, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, TestOne));
     }
 
     [Fact]
     public void
         Failure_WithValidValue_WithDifferentErrorMessage_TestNegativeOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, TestNegativeOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(TestNegativeOne, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, TestNegativeOne));
     }
 
     [Fact]
     public void
         Failure_WithValidValue_WithDifferentErrorMessage_TestBigPositive()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, TestBigPositive);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(TestBigPositive, parsingResult.NewIndex);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, TestBigPositive));
     }
 
     [Fact]
     public void
         Failure_WithValidValue_WithDifferentErrorMessage_TestBigNegative()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, TestBigNegative);
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, TestBigNegative));
+    }
 
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(TestBigNegative, parsingResult.NewIndex);
-    }*/
-
-    /*[Fact]
+    [Fact]
     public void Failure_WithValidValue_WithDifferentErrorMessage_ValidValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
-            SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                DifferentErrorMessage, ValidValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(DifferentErrorMessage, parsingResult.Message);
-        Assert.Equal(ValidValue, parsingResult.NewIndex);
-    }*/
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
+            ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
+                DifferentErrorMessage, ValidValue));
+    }
 
     [Fact]
     public void Failure_WithFailedIndex_AndEmptyMessage_Default()
@@ -5188,179 +5012,91 @@ public class CreateFailure
         Assert.Equal(ValidValue, parsingResult.NewIndex);
     }
 
-    /*[Fact]
+    [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_Default()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(-2, parsingResult.NewIndex);
+                EmptyMessage));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_FailedIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, FailedIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(FailedIndex, parsingResult.NewIndex);
+                EmptyMessage, FailedIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_NegativeIndex()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, NegativeIndex);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(NegativeIndex, parsingResult.NewIndex);
+                EmptyMessage, NegativeIndex));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_PositiveValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, PositiveValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(PositiveValue, parsingResult.NewIndex);
+                EmptyMessage, PositiveValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_NegativeValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, NegativeValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(NegativeValue, parsingResult.NewIndex);
+                EmptyMessage, NegativeValue));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_TestZero()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, TestZero);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(TestZero, parsingResult.NewIndex);
+                EmptyMessage, TestZero));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_TestOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, TestOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(TestOne, parsingResult.NewIndex);
+                EmptyMessage, TestOne));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_TestNegativeOne()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, TestNegativeOne);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(TestNegativeOne, parsingResult.NewIndex);
+                EmptyMessage, TestNegativeOne));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_TestBigPositive()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, TestBigPositive);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(TestBigPositive, parsingResult.NewIndex);
+                EmptyMessage, TestBigPositive));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_TestBigNegative()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, TestBigNegative);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(TestBigNegative, parsingResult.NewIndex);
+                EmptyMessage, TestBigNegative));
     }
 
     [Fact]
     public void Failure_WithValidValue_AndEmptyMessage_ValidValue()
     {
-        SoftOmni.ParsingResults.ProgressiveParsingResult parsingResult =
+        Assert.Throws<ValidityIndexOnFailedParsingResultException>(() =>
             SoftOmni.ParsingResults.ProgressiveParsingResult.CreateFailure(ValidValue,
-                EmptyMessage, ValidValue);
-
-        Assert.NotNull(parsingResult);
-        Assert.False(parsingResult.IsSuccess);
-        Assert.True(parsingResult.IsFailure);
-        Assert.False(parsingResult.IsCustom);
-        Assert.Equal(ValidValue, parsingResult.Value);
-        Assert.Equal(EmptyMessage, parsingResult.Message);
-        Assert.Equal(ValidValue, parsingResult.NewIndex);
-    }*/
+                EmptyMessage, ValidValue));
+    }
 }
