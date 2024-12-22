@@ -12,9 +12,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
-          source-url: https://nuget.pkg.github.com/OmniSoft/index.json
+          source-url: https://nuget.pkg.github.com/SoftOmni/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.OMNISOFT_NUGET_KEY }}
+          NUGET_AUTH_TOKEN: ${{ secrets.SOFTOMNI_NUGET_KEY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
