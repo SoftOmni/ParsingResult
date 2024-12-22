@@ -12,9 +12,9 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
-          source-url: https://nuget.pkg.github.com/SoftLights/index.json
+          source-url: https://nuget.pkg.github.com/OmniSoft/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{ secrets.SOFTLIGHTS_NUGET_MASTER_KEY }}
+          NUGET_AUTH_TOKEN: ${{ secrets.OMNISOFT_NUGET_KEY }}
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,5 +50,5 @@ jobs:
         if: steps.test.outcome == 'success'
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.SOFTLIGHTS_NUGET_MASTER_KEY }} --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.OMNISOFT_NUGET_KEY }} --source https://api.nuget.org/v3/index.json
         if: steps.test.outcome == 'success'
