@@ -15,7 +15,7 @@
 ///     This message is only thrown for non-custom failed <see cref="ParsingResult"/> and
 ///     <see cref="ProgressiveParsingResult"/> instances.
 /// </remarks>
-public class ValidityIndexOnFailedParsingResultException : ArgumentException
+public sealed class ValidityIndexOnFailedParsingResultException : ArgumentException
 {
     /// <summary>
     ///     Creates a new instance of the <see cref="ValidityIndexOnFailedParsingResultException"/> exception.
