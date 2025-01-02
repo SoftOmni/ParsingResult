@@ -1,54 +1,33 @@
-name: nuget.yml
+name: Publish to NuGet
+
 on:
-  push:
-    tags:
-      - "[0-9]+.[0-9]+.[0-9]+"
+  workflow_run:
+    workflows: [ "Build & Test" ]
+    types: [ completed ]
+
 jobs:
-  build:
+  publish:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: ./artifacts
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
-          source-url: https://nuget.pkg.github.com/SoftOmni/index.json
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.SOFTOMNI_NUGET_KEY }}
 
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Verify commit exists in origin/master
-        run: |
-          git fetch --no-tags --prune --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-          git branch --remote --contains | grep origin/master
-
-      - name: Set VERSION variable from tag or commit
-        run: |
-          set -e
-          git fetch --tags
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            VERSION=$TAG
-          else
-            COMMIT_HASH=$(git rev-parse --short HEAD)
-            VERSION="0.0.0-$COMMIT_HASH"
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Build
-        run: dotnet build --configuration Release
-
-      - name: Test
-        id: test
-        run: dotnet test --configuration Release --logger "trx;LogFileName=test_results.trx" --no-build
-
       - name: Pack
-        run: dotnet pack --configuration Release --no-build --output ./artifacts
-        if: steps.test.outcome == 'success'
+        run: dotnet pack --configuration Release --output ./artifacts
 
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.SOFTOMNI_NUGET_KEY }} --source https://api.nuget.org/v3/index.json
-        if: steps.test.outcome == 'success'
+        run: dotnet nuget push ./artifacts/*.nupkg \
+          --api-key ${{ secrets.SOFTOMNI_NUGET_KEY }} \
+          --source https://api.nuget.org/v3/index.json
