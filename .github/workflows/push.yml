@@ -8,22 +8,26 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '9.0.x'
 
+    strategy:
+      matrix:
+        dotnet-version: ['8.0.x', '9.0.x']
+
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set VERSION variable from tag or commit
+      - name: Setup .NET ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Set VERSION variable
         run: |
           set -e
           git fetch --tags
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          if [[ -n "$TAG" && "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+ ]]; then
+          if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
             VERSION=$TAG
           else
             COMMIT_HASH=$(git rev-parse --short HEAD)
@@ -35,21 +39,25 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
 
-      - name: Test
-        run: dotnet test --configuration Release /p:Version=${{ env.VERSION }} \
-          --logger "trx;LogFileName=test_results.trx" --no-build
+      - name: Test for .NET ${{ matrix.dotnet-version }}
+        run: |
+          dotnet test \
+            --configuration Release \
+            /p:Version=${{ env.VERSION }} \
+            --logger "trx;LogFileName=test_results_${{ matrix.dotnet-version }}.trx" \
+            --no-build
 
-      - name: Publish test results artifact
+      - name: Publish test results (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
-          path: "**/TestResults/*.trx"
+          name: test-results-${{ matrix.dotnet-version }}
+          path: "**/TestResults/test_results_${{ matrix.dotnet-version }}.trx"
 
       - name: Report test results
         if: always()
         uses: dorny/test-reporter@v1
         with:
-          name: .NET Tests
-          path: "**/TestResults/*.trx"
+          name: .NET Tests (version ${{ matrix.dotnet-version }})
+          path: "**/TestResults/test_results_${{ matrix.dotnet-version }}.trx"
           reporter: dotnet-trx
