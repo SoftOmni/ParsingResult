@@ -28,13 +28,13 @@ jobs:
           VERSIONS=()
           
           for PROJECT_FILE in $PROJECT_FILES; do
-            # Extract a single target framework if available
-            TARGET=$(grep -oPm1 "(?<=<TargetFramework>)(.*)(?=</TargetFramework>)" "$PROJECT_FILE")
+            # Extract a single target framework if available; ignore grep errors when no match is found
+            TARGET=$(grep -oPm1 "(?<=<TargetFramework>)(.*)(?=</TargetFramework>)" "$PROJECT_FILE" || true)
             if [ -n "$TARGET" ]; then
               VERSIONS+=("$TARGET")
             fi
-            # Extract multiple target frameworks if available
-            MULTI=$(grep -oPm1 "(?<=<TargetFrameworks>)(.*)(?=</TargetFrameworks>)" "$PROJECT_FILE")
+            # Extract multiple target frameworks if available; ignore grep errors when no match is found
+            MULTI=$(grep -oPm1 "(?<=<TargetFrameworks>)(.*)(?=</TargetFrameworks>)" "$PROJECT_FILE" || true)
             if [ -n "$MULTI" ]; then
               IFS=';' read -ra FRAMEWORKS <<< "$MULTI"
               for f in "${FRAMEWORKS[@]}"; do
@@ -59,6 +59,7 @@ jobs:
           echo "Matrix: $MATRIX_JSON"
           # Set the output for later jobs
           echo "::set-output name=matrix::$MATRIX_JSON"
+        shell: bash
 
   build-and-test:
     needs: generate-matrix
