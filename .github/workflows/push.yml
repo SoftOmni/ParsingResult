@@ -29,12 +29,12 @@ jobs:
           VERSIONS=()
           
           for PROJECT_FILE in $PROJECT_FILES; do
-            # Extract a single target framework if available
+            # Extract single target framework, ignore missing entries
             TARGET=$(grep -oPm1 "(?<=<TargetFramework>)(.*)(?=</TargetFramework>)" "$PROJECT_FILE" || true)
             if [ -n "$TARGET" ]; then
               VERSIONS+=("$TARGET")
             fi
-            # Extract multiple target frameworks if available
+            # Extract multiple target frameworks, if any
             MULTI=$(grep -oPm1 "(?<=<TargetFrameworks>)(.*)(?=</TargetFrameworks>)" "$PROJECT_FILE" || true)
             if [ -n "$MULTI" ]; then
               IFS=';' read -ra FRAMEWORKS <<< "$MULTI"
@@ -44,7 +44,7 @@ jobs:
             fi
           done
           
-          # Remove duplicate entries and sort them (one per line)
+          # Remove duplicates and sort
           UNIQUE_VERSIONS=($(printf "%s\n" "${VERSIONS[@]}" | sort -u))
           
           if [ ${#UNIQUE_VERSIONS[@]} -eq 0 ]; then
@@ -52,13 +52,13 @@ jobs:
             MATRIX_JSON="{\"dotnet_version\": []}"
             HIGHEST_VERSION=""
           else
-            # Build a JSON array from the unique versions (e.g. "net6.0", "net7.0")
+            # Build JSON array, e.g. ["net6.0","net7.0"]
             JSON_ARRAY=$(printf '"%s",' "${UNIQUE_VERSIONS[@]}")
             JSON_ARRAY="[${JSON_ARRAY%,}]"
             MATRIX_JSON="{\"dotnet_version\": $JSON_ARRAY}"
           
-            # Determine the highest version by removing the "net" prefix,
-            # sorting numerically in reverse, then re-adding the "net" prefix.
+            # Determine the highest version.
+            # Remove "net" prefix, sort numerically in reverse, and then prepend "net" again.
             HIGHEST_NUM=$(printf "%s\n" "${UNIQUE_VERSIONS[@]}" | sed 's/^net//' | sort -rV | head -n 1)
             HIGHEST_VERSION="net${HIGHEST_NUM}"
           fi
@@ -79,7 +79,8 @@ jobs:
       - name: Determine .NET SDK version for build (highest)
         id: sdk-version-build
         run: |
-          # Strip "net" and append ".x" (e.g. "net7.0" -> "7.0.x")
+          # Convert the highest target framework to an SDK version.
+          # E.g., "net9.0" becomes "9.0.x"
           sdk_version=$(echo "${{ needs.generate-matrix.outputs.highest }}" | sed 's/^net//').x
           echo "Calculated .NET SDK version for build: $sdk_version"
           echo "::set-output name=sdk_version::$sdk_version"
@@ -106,9 +107,10 @@ jobs:
 
       - name: Build solution using highest .NET version
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
+        shell: bash
 
   test:
-    needs: generate-matrix
+    needs: build
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
@@ -120,7 +122,7 @@ jobs:
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
         run: |
-          # Strip "net" and append ".x" (e.g. "net6.0" -> "6.0.x")
+          # Convert the current matrix target framework (e.g. net6.0) to an SDK version (e.g. 6.0.x)
           sdk_version=$(echo "${{ matrix.dotnet_version }}" | sed 's/^net//').x
           echo "Calculated .NET SDK version for test: $sdk_version"
           echo "::set-output name=sdk_version::$sdk_version"
@@ -145,10 +147,17 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
         shell: bash
 
-      - name: Run tests using target framework ${{ matrix.dotnet_version }}
+      - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
         run: |
-          # Explicitly specify the test project to avoid test runner issues.
-          dotnet test ./tests/MyTestProject.csproj --configuration Release /p:Version=${{ env.VERSION }} --logger "trx;LogFileName=test_results_${{ matrix.dotnet_version }}.trx" --no-build
+          # Find all test projects dynamically (modify the pattern if needed)
+          for testproj in $(find . -type f -name "*Tests.csproj"); do
+            echo "Running tests for $testproj with target framework ${{ matrix.dotnet_version }}"
+            dotnet test "$testproj" --configuration Release \
+              /p:TargetFramework=${{ matrix.dotnet_version }} \
+              /p:Version=${{ env.VERSION }} \
+              --logger "trx;LogFileName=$(basename "$testproj" .csproj)_${{ matrix.dotnet_version }}.trx" \
+              --no-build
+          done
         shell: bash
 
       - name: Publish test results artifact
