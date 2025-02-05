@@ -29,7 +29,7 @@ jobs:
           VERSIONS=()
           
           for PROJECT_FILE in $PROJECT_FILES; do
-            # Extract single target framework, ignore missing entries
+            # Extract single target framework (ignore if not present)
             TARGET=$(grep -oPm1 "(?<=<TargetFramework>)(.*)(?=</TargetFramework>)" "$PROJECT_FILE" || true)
             if [ -n "$TARGET" ]; then
               VERSIONS+=("$TARGET")
@@ -44,7 +44,7 @@ jobs:
             fi
           done
           
-          # Remove duplicates and sort
+          # Remove duplicate entries and sort them
           UNIQUE_VERSIONS=($(printf "%s\n" "${VERSIONS[@]}" | sort -u))
           
           if [ ${#UNIQUE_VERSIONS[@]} -eq 0 ]; then
@@ -52,7 +52,7 @@ jobs:
             MATRIX_JSON="{\"dotnet_version\": []}"
             HIGHEST_VERSION=""
           else
-            # Build JSON array, e.g. ["net6.0","net7.0"]
+            # Build a JSON array from the unique versions (e.g. ["net6.0","net7.0"])
             JSON_ARRAY=$(printf '"%s",' "${UNIQUE_VERSIONS[@]}")
             JSON_ARRAY="[${JSON_ARRAY%,}]"
             MATRIX_JSON="{\"dotnet_version\": $JSON_ARRAY}"
@@ -65,8 +65,9 @@ jobs:
           
           echo "Matrix: $MATRIX_JSON"
           echo "Highest version: $HIGHEST_VERSION"
-          echo "::set-output name=matrix::$MATRIX_JSON"
-          echo "::set-output name=highest::$HIGHEST_VERSION"
+          # Write outputs using the new environment file syntax:
+          echo "matrix=$MATRIX_JSON" >> $GITHUB_OUTPUT
+          echo "highest=$HIGHEST_VERSION" >> $GITHUB_OUTPUT
         shell: bash
 
   build:
@@ -83,7 +84,7 @@ jobs:
           # E.g., "net9.0" becomes "9.0.x"
           sdk_version=$(echo "${{ needs.generate-matrix.outputs.highest }}" | sed 's/^net//').x
           echo "Calculated .NET SDK version for build: $sdk_version"
-          echo "::set-output name=sdk_version::$sdk_version"
+          echo "sdk_version=$sdk_version" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Setup .NET for build
@@ -110,8 +111,10 @@ jobs:
         shell: bash
 
   test:
-    needs: build
+    needs: [generate-matrix, build]
     runs-on: ubuntu-latest
+    # Use the matrix generated in the previous job. If the JSON is empty,
+    # this will result in no test jobs being run.
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
       fail-fast: false
@@ -125,7 +128,7 @@ jobs:
           # Convert the current matrix target framework (e.g. net6.0) to an SDK version (e.g. 6.0.x)
           sdk_version=$(echo "${{ matrix.dotnet_version }}" | sed 's/^net//').x
           echo "Calculated .NET SDK version for test: $sdk_version"
-          echo "::set-output name=sdk_version::$sdk_version"
+          echo "sdk_version=$sdk_version" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Setup .NET for test
@@ -149,7 +152,7 @@ jobs:
 
       - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
         run: |
-          # Find all test projects dynamically (modify the pattern if needed)
+          # Dynamically find all test projects (you can adjust the search pattern as needed)
           for testproj in $(find . -type f -name "*Tests.csproj"); do
             echo "Running tests for $testproj with target framework ${{ matrix.dotnet_version }}"
             dotnet test "$testproj" --configuration Release \
