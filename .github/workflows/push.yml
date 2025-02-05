@@ -155,6 +155,7 @@ jobs:
           # Dynamically find all test projects (you can adjust the search pattern as needed)
           for testproj in $(find . -type f -name "*Tests.csproj"); do
             echo "Running tests for $testproj with target framework ${{ matrix.dotnet_version }}"
+            echo "Logs: $(basename "$testproj" .csproj)_${{ matrix.dotnet_version }}.trx"
             dotnet test "$testproj" --configuration Release \
               /p:TargetFramework=${{ matrix.dotnet_version }} \
               /p:Version=${{ env.VERSION }} \
