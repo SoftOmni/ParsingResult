@@ -28,7 +28,7 @@ jobs:
           VERSIONS=()
           
           for PROJECT_FILE in $PROJECT_FILES; do
-            # Extract a single target framework
+            # Extract a single target framework if available
             TARGET=$(grep -oPm1 "(?<=<TargetFramework>)(.*)(?=</TargetFramework>)" "$PROJECT_FILE")
             if [ -n "$TARGET" ]; then
               VERSIONS+=("$TARGET")
@@ -57,13 +57,12 @@ jobs:
           fi
           
           echo "Matrix: $MATRIX_JSON"
-          # Set the output (using the legacy syntax; see GitHub’s docs for migrating to $GITHUB_OUTPUT)
+          # Set the output for later jobs
           echo "::set-output name=matrix::$MATRIX_JSON"
 
   build-and-test:
     needs: generate-matrix
     runs-on: ubuntu-latest
-    # Use the generated matrix. Each job run will have a different "matrix.dotnet_version" value.
     strategy:
       matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
       fail-fast: false
@@ -72,11 +71,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Determine .NET SDK version
+        id: sdk-version
+        run: |
+          # Remove the "net" prefix and append ".x" to form the SDK version.
+          sdk_version=$(echo "${{ matrix.dotnet_version }}" | sed 's/^net//').x
+          echo "Calculated .NET SDK version: $sdk_version"
+          echo "::set-output name=sdk_version::$sdk_version"
+        shell: bash
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          # Convert a target framework (e.g. "net7.0") into a .NET SDK version (e.g. "7.0.x")
-          dotnet-version: ${{ format('{0}.x', replace(matrix.dotnet_version, 'net', '')) }}
+          dotnet-version: ${{ steps.sdk-version.outputs.sdk_version }}
 
       - name: Set VERSION variable from tag or commit
         run: |
