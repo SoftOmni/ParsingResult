@@ -9,4 +9,5 @@ else
   COMMIT_HASH=$(git rev-parse --short HEAD)
   VERSION="0.0.0-$COMMIT_HASH"
 fi
+
 echo "VERSION=$VERSION" >> "$GITHUB_ENV"
