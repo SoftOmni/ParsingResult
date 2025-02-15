@@ -25,7 +25,7 @@ for PROJECT_FILE in $PROJECT_FILES; do
 done
 
 # Remove duplicate entries and sort them
-UNIQUE_VERSIONS=($(printf "%s\n" "${VERSIONS[@]}" | sort -u))
+mapfile -t UNIQUE_VERSIONS < <(printf "%s\n" "${VERSIONS[@]}" | sort -u)
 
 if [ ${#UNIQUE_VERSIONS[@]} -eq 0 ]; then
   echo "No .NET versions found in projects."
