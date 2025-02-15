@@ -28,7 +28,7 @@ jobs:
 
       - name: Determine .NET SDK version for build (highest)
         id: sdk-version-build
-        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-dotnet-version-for-build.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-build.sh"
 
       - name: Setup .NET for build
         uses: actions/setup-dotnet@v4
@@ -36,7 +36,7 @@ jobs:
           dotnet-version: ${{ steps.sdk-version-build.outputs.sdk_version }}
 
       - name: Set VERSION variable from tag or commit
-        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-version-tag.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag.sh"
 
       - name: Build solution using highest .NET version
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
@@ -56,7 +56,7 @@ jobs:
 
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
-        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-dotnet-version-for-tests.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-tests.sh"
 
       - name: Setup .NET for test
         uses: actions/setup-dotnet@v4
@@ -64,10 +64,10 @@ jobs:
           dotnet-version: ${{ steps.sdk-version-test.outputs.sdk_version }}
 
       - name: Set VERSION variable from tag or commit
-        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-version-tag-for-tests.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag-for-tests.sh"
 
       - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
-        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/run-tests.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh"
 
       - name: Publish test results artifact
         if: always()
