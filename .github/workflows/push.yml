@@ -28,13 +28,7 @@ jobs:
 
       - name: Determine .NET SDK version for build (highest)
         id: sdk-version-build
-        run: |
-          # Convert the highest target framework to an SDK version.
-          # E.g., "net9.0" becomes "9.0.x"
-          sdk_version=$(echo "${{ needs.generate-matrix.outputs.highest }}" | sed 's/^net//').x
-          echo "Calculated .NET SDK version for build: $sdk_version"
-          echo "sdk_version=$sdk_version" >> $GITHUB_OUTPUT
-        shell: bash
+        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-dotnet-version-for-build.sh"
 
       - name: Setup .NET for build
         uses: actions/setup-dotnet@v4
@@ -42,18 +36,7 @@ jobs:
           dotnet-version: ${{ steps.sdk-version-build.outputs.sdk_version }}
 
       - name: Set VERSION variable from tag or commit
-        run: |
-          set -e
-          git fetch --tags
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-            VERSION=$TAG
-          else
-            COMMIT_HASH=$(git rev-parse --short HEAD)
-            VERSION="0.0.0-$COMMIT_HASH"
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-        shell: bash
+        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-version-tag.sh"
 
       - name: Build solution using highest .NET version
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
@@ -73,12 +56,7 @@ jobs:
 
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
-        run: |
-          # Convert the current matrix target framework (e.g. net6.0) to an SDK version (e.g. 6.0.x)
-          sdk_version=$(echo "${{ matrix.dotnet_version }}" | sed 's/^net//').x
-          echo "Calculated .NET SDK version for test: $sdk_version"
-          echo "sdk_version=$sdk_version" >> $GITHUB_OUTPUT
-        shell: bash
+        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-dotnet-version-for-tests.sh"
 
       - name: Setup .NET for test
         uses: actions/setup-dotnet@v4
@@ -86,32 +64,10 @@ jobs:
           dotnet-version: ${{ steps.sdk-version-test.outputs.sdk_version }}
 
       - name: Set VERSION variable from tag or commit
-        run: |
-          set -e
-          git fetch --tags
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1) 2>/dev/null) || true
-          if [[ -n "$TAG" && "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+ ]]; then
-            VERSION=$TAG
-          else
-            COMMIT_HASH=$(git rev-parse --short HEAD)
-            VERSION="0.0.0-$COMMIT_HASH"
-          fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-        shell: bash
+        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/set-version-tag-for-tests.sh"
 
       - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
-        run: |
-          # Dynamically find all test projects (you can adjust the search pattern as needed)
-          for testproj in $(find . -type f -name "*Tests.csproj"); do
-            echo "Running tests for $testproj with target framework ${{ matrix.dotnet_version }}"
-            echo "Logs: $(basename "$testproj" .csproj)_${{ matrix.dotnet_version }}.trx"
-            dotnet test "$testproj" --configuration Release \
-              /p:TargetFramework=${{ matrix.dotnet_version }} \
-              /p:Version=${{ env.VERSION }} \
-              --logger "trx;LogFileName=$(basename "$testproj" .csproj)_${{ matrix.dotnet_version }}.trx" \
-              --no-build
-          done
-        shell: bash
+        run: bash "${GITHUB_WORKSPACE}.github/workflows/scripts/push/run-tests.sh"
 
       - name: Publish test results artifact
         if: always()
