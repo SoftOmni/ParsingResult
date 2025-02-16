@@ -91,7 +91,7 @@ jobs:
         run: dotnet test "${{ matrix.test_project }}" --configuration Release --framework ${{ matrix.dotnet_version }} --logger "trx;LogFileName=${GITHUB_WORKSPACE}/test_results/${{ matrix.dotnet_version }}/test_results.trx" --no-build
 
       - name: debug tree
-        run: tree
+        run: tree -a
 
       - name: Publish test results artifact
         if: always()
