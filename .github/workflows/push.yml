@@ -31,6 +31,9 @@ jobs:
       - name: Generate test matrix with projects and frameworks
         id: set-test-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/generate-project-matrix.sh" "${GITHUB_WORKSPACE}" '${{ needs.generate-matrix.outputs.matrix }}'
+        
+      - name: Debug test-matrix output
+        run: echo '${{ steps.set-test-matrix.outputs.test-matrix }}'
 
   build:
     needs: generate-matrix
