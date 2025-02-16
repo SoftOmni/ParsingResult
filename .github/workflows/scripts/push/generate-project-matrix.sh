@@ -24,7 +24,7 @@ done <<< "$versions"
 matrix_entries="[]"
 for project in $test_projects; do
   for version in "${versions_array[@]}"; do
-    matrix_entries=$(jq --arg v "$version" --arg p "$project" '. + [{"dotnet_version": $v, "test_project": $p}]' <<< "$matrix_entries")
+    matrix_entries=$(jq -c --arg v "$version" --arg p "$project" '. + [{"dotnet_version": $v, "test_project": $p}]' <<< "$matrix_entries")
   done
 done
 
