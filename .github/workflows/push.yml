@@ -62,7 +62,7 @@ jobs:
         shell: bash
 
   test:
-    needs: [generate-test-matrix, build]
+    needs: [ generate-test-matrix, build ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
