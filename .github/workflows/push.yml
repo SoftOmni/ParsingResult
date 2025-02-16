@@ -69,10 +69,13 @@ jobs:
       - name: Setup directory for tests
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" "${{ matrix.dotnet_version }}" "${GITHUB_WORKSPACE}"
 
-      - name: Run tests for all test projects using target framework "${{ matrix.dotnet_version }}"
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh" "${{ matrix.dotnet_version }}" "${{ env.VERSION }}"
-        
-      - name: Debug file tree
+      - name: Run tests
+        run: dotnet test --configuration Release \
+             --framework ${{ matrix.dotnet_version }} \
+             --logger "test_results/${{ matrix.dotnet_version }}/test_results.trx" \
+             --no-build
+      
+      - name: debug tree
         run: tree
 
       - name: Publish test results artifact
