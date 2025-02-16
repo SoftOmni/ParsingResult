@@ -88,10 +88,7 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" "${{ matrix.dotnet_version }}" "${GITHUB_WORKSPACE}"
 
       - name: Run tests
-        run: dotnet test "${{ matrix.test_project }}" --configuration Release \
-          --framework ${{ matrix.dotnet_version }} \
-          --logger "test_results/${{ matrix.dotnet_version }}/test_results.trx" \
-          --no-build
+        run: dotnet test "${{ matrix.test_project }}" --configuration Release --framework ${{ matrix.dotnet_version }} --logger "test_results/${{ matrix.dotnet_version }}/test_results.trx" --no-build
 
       - name: debug tree
         run: tree
