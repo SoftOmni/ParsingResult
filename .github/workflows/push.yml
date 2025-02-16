@@ -71,6 +71,9 @@ jobs:
 
       - name: Run tests for all test projects using target framework "${{ matrix.dotnet_version }}"
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh" "${{ matrix.dotnet_version }}" "${{ env.VERSION }}"
+        
+      - name: Debug file tree
+        run: tree
 
       - name: Publish test results artifact
         if: always()
