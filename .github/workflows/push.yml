@@ -65,6 +65,9 @@ jobs:
 
       - name: Set VERSION variable from tag or commit
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag-for-tests.sh"
+        
+      - name: Setup directory for tests
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" ${{ matrix.dotnet_version }}
 
       - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh" ${{ matrix.dotnet_version }} ${{ env.VERSION }}
@@ -74,12 +77,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results-${{ matrix.dotnet_version }}
-          path: "*.trx"
+          path: "test_results/${{ matrix.dotnet_version }}/*.trx"
 
       - name: Report test results
         if: always()
         uses: dorny/test-reporter@v1
         with:
           name: .NET Tests (${{ matrix.dotnet_version }})
-          path: "*.trx"
+          path: "test_results/${{ matrix.dotnet_version }}/*.trx"
           reporter: dotnet-trx

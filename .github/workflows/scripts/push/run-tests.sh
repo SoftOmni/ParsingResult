@@ -9,7 +9,7 @@ for testproj in $(find . -type f -name "*Tests.csproj"); do
   dotnet test "$testproj" --configuration Release \
     /p:TargetFramework="${1}" \
     /p:Version="${2}" \
-    --logger "trx;LogFileName=$(basename "$testproj" .csproj)_${1}.trx" \
+    --logger "trx;LogFileName=test_results/${1}/$(basename "$testproj" .csproj)_${1}.trx" \
     --no-build &
   
   # Capture the PID of the last background process
