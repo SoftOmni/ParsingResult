@@ -16,12 +16,6 @@ for project in $test_projects; do
   done
 done
 
-echo "Generated test matrix (array):"
+echo "Generated test matrix:"
 echo "$matrix_entries"
-
-# Wrap the array in an object with the 'include' key.
-final_matrix=$(jq -n --argjson entries "$matrix_entries" '{include: $entries}')
-echo "Final test matrix (object):"
-echo "$final_matrix"
-
-echo "::set-output name=test-matrix::$final_matrix"
+echo "::set-output name=test-matrix::$matrix_entries"
