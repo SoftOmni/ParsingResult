@@ -35,8 +35,9 @@ jobs:
           GITHUB_ENV: ${{ env.GITHUB_ENV }}
 
       - name: Debug test-matrix output
-        run:
+        run: |
           echo "Generated Matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}"
+        shell: bash
 
 
   build:
