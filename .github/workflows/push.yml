@@ -56,7 +56,7 @@ jobs:
 
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-tests.sh" ${{ matrix.dotnet_version }}
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-tests.sh" "${{ matrix.dotnet_version }}"
 
       - name: Setup .NET for test
         uses: actions/setup-dotnet@v4
@@ -67,10 +67,10 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag-for-tests.sh"
         
       - name: Setup directory for tests
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" ${{ matrix.dotnet_version }}
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" "${{ matrix.dotnet_version }}" "${GITHUB_WORKSPACE}"
 
-      - name: Run tests for all test projects using target framework ${{ matrix.dotnet_version }}
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh" ${{ matrix.dotnet_version }} ${{ env.VERSION }}
+      - name: Run tests for all test projects using target framework "${{ matrix.dotnet_version }}"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run-tests.sh" "${{ matrix.dotnet_version }}" "${{ env.VERSION }}"
 
       - name: Publish test results artifact
         if: always()

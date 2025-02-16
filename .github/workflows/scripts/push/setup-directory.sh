@@ -1,6 +1,6 @@
 #!/bin/bash
 
-location="tests_results/${1}"
+location="${2}/tests_results/${1}"
 
 if [ ! -d "${location}" ]; then
   echo "Creating directory ${location}"

@@ -1,4 +1,5 @@
 # ParsingResult
+
 This is a library that provides simple parsing result types.
 
 The library provides a set of types that can be used to represent
