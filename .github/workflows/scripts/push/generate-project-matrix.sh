@@ -32,4 +32,4 @@ echo "Generated test matrix:"
 echo "$matrix_entries"
 
 # Use GitHub Actions environment file instead of deprecated ::set-output
-echo "test-matrix=$matrix_entries" >> "$GITHUB_ENV"
+echo "test-matrix=$(jq -c . <<< "$matrix_entries")" >> "$GITHUB_OUTPUT"
