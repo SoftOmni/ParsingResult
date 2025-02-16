@@ -30,4 +30,6 @@ done
 
 echo "Generated test matrix:"
 echo "$matrix_entries"
-echo "::set-output name=test-matrix::$matrix_entries"
+
+# Use GitHub Actions environment file instead of deprecated ::set-output
+echo "test-matrix=$matrix_entries" >> "$GITHUB_ENV"
