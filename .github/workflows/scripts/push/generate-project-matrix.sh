@@ -5,8 +5,7 @@ echo "Finding test projects..."
 test_projects=$(find . -type f -name "*Tests.csproj")
 echo "Found projects: $test_projects"
 
-# Assume the matrix from generate-matrix is a JSON object like:
-# { "include": [ {"dotnet_version": "net8.0"}, {"dotnet_version": "net7.0"}, ... ] }
+# Extract .NET versions from the earlier matrix (assumes it's a JSON object with an 'include' key)
 versions=$(echo '${{ needs.generate-matrix.outputs.matrix }}' | jq -r '.include[].dotnet_version')
 
 # Build a JSON array of matrix entries.
@@ -17,6 +16,12 @@ for project in $test_projects; do
   done
 done
 
-echo "Generated test matrix:"
+echo "Generated test matrix (array):"
 echo "$matrix_entries"
-echo "::set-output name=test-matrix::$matrix_entries"
+
+# Wrap the array in an object with the 'include' key.
+final_matrix=$(jq -n --argjson entries "$matrix_entries" '{include: $entries}')
+echo "Final test matrix (object):"
+echo "$final_matrix"
+
+echo "::set-output name=test-matrix::$final_matrix"
