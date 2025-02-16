@@ -19,6 +19,19 @@ jobs:
         id: set-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-matrix.sh"
 
+  generate-test-matrix:
+    runs-on: ubuntu-latest
+    needs: generate-matrix
+    outputs:
+      test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate test matrix with projects and frameworks
+        id: set-test-matrix
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/generate-project-matrix.sh"
+
   build:
     needs: generate-matrix
     runs-on: ubuntu-latest
@@ -43,12 +56,10 @@ jobs:
         shell: bash
 
   test:
-    needs: [generate-matrix, build]
+    needs: [generate-test-matrix, build]
     runs-on: ubuntu-latest
-    # Use the matrix generated in the previous job. If the JSON is empty,
-    # this will result in no test jobs being run.
     strategy:
-      matrix: ${{ fromJson(needs.generate-matrix.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
       fail-fast: false
     steps:
       - name: Checkout
@@ -65,16 +76,16 @@ jobs:
 
       - name: Set VERSION variable from tag or commit
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag-for-tests.sh"
-        
+
       - name: Setup directory for tests
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" "${{ matrix.dotnet_version }}" "${GITHUB_WORKSPACE}"
 
       - name: Run tests
-        run: dotnet test --configuration Release \
-             --framework ${{ matrix.dotnet_version }} \
-             --logger "test_results/${{ matrix.dotnet_version }}/test_results.trx" \
-             --no-build
-      
+        run: dotnet test "${{ matrix.test_project }}" --configuration Release \
+          --framework ${{ matrix.dotnet_version }} \
+          --logger "test_results/${{ matrix.dotnet_version }}/test_results.trx" \
+          --no-build
+
       - name: debug tree
         run: tree
 
