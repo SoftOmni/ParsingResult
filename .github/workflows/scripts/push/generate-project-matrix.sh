@@ -2,7 +2,7 @@
 
 # Find all test projects (adjust the pattern/path as needed)
 echo "Finding test projects..."
-test_projects=$(find . -type f -name "*Tests.csproj")
+test_projects=$(find "${0}" -type f -name "*Tests.csproj")
 echo "Found projects: $test_projects"
 
 # Extract .NET versions from the earlier matrix (assumes it's a JSON object with an 'include' key)
