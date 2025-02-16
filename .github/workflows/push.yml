@@ -65,7 +65,8 @@ jobs:
     needs: [generate-test-matrix, build]
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
+      matrix:
+        include: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
       fail-fast: false
     steps:
       - name: Checkout
