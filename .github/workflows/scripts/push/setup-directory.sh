@@ -1,18 +1,26 @@
 #!/bin/bash
 
-location="${2}/tests_results/${1}"
+location_simple="${2}/test_results"
+location="${location_simple}/${1}"
 
-if [ ! -d "${location}" ]; then
-  echo "Creating directory ${location}"
-  mkdir "${location}"
-  if [ -d "${location}" ]; then
-    echo "Created directory ${location}"
+function create_directory()
+{
+  if [ ! -d "${1}" ]; then
+    echo "Creating directory ${1}"
+    mkdir "${1}"
+    if [ -d "${1}" ]; then
+      echo "Created directory ${1}"
+    else
+      echo "Failed to create directory ${1} for some reasons. Check logs right above me."
+      exit 1
+    fi
   else
-    echo "Failed to create directory ${location} for some reasons. Check logs right above me."
-    exit 1
+    echo "Directory ${1} already exists!"
   fi
-else
-  echo "Directory ${location} already exists!"
-fi
+}
+
+create_directory "${location_simple}"
+create_directory "${location}"
 
 exit 0
+
