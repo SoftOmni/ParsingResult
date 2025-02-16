@@ -5,14 +5,26 @@ echo "Finding test projects..."
 test_projects=$(find "${1}" -type f -name "*Tests.csproj")
 echo "Found projects: $test_projects"
 
-# Extract .NET versions from the earlier matrix (assumes it's a JSON object with an 'include' key)
-versions=$(echo "${2}" | jq -r '.include[].dotnet_version')
+# Store the JSON input as a variable without using echo
+dotnet_versions_json="$2"
+
+# Print the raw JSON for debugging
+echo "Raw .NET versions JSON: $dotnet_versions_json"
+
+# Extract .NET versions properly without stripping quotes
+versions=$(jq -r '.dotnet_version[]' <<< "$dotnet_versions_json")
+
+# Convert JSON array elements into a Bash array
+versions_array=()
+while IFS= read -r version; do
+    versions_array+=("$version")
+done <<< "$versions"
 
 # Build a JSON array of matrix entries.
 matrix_entries="[]"
 for project in $test_projects; do
-  for version in $versions; do
-    matrix_entries=$(echo "$matrix_entries" | jq --arg v "$version" --arg p "$project" '. + [{"dotnet_version": $v, "test_project": $p}]')
+  for version in "${versions_array[@]}"; do
+    matrix_entries=$(jq --arg v "$version" --arg p "$project" '. + [{"dotnet_version": $v, "test_project": $p}]' <<< "$matrix_entries")
   done
 done
 
