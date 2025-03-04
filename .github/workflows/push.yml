@@ -37,7 +37,6 @@ jobs:
           echo "Generated Matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}"
         shell: bash
 
-
   build:
     needs: generate-matrix
     runs-on: ubuntu-latest
@@ -61,6 +60,14 @@ jobs:
         run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
         shell: bash
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            **/bin/Release/
+          retention-days: 1
+  
   test:
     needs: [ generate-test-matrix, build ]
     runs-on: ubuntu-latest
@@ -71,6 +78,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: .
 
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
