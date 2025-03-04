@@ -84,6 +84,13 @@ jobs:
         with:
           name: build-artifacts
           path: .
+          
+      - name: Move build artifacts to expected locations
+        run: |
+          echo "Moving build artifacts to expected test directories..."
+          find . -type f -name "*.dll" -exec cp --parents {} $GITHUB_WORKSPACE \;
+          find . -type f -name "*.pdb" -exec cp --parents {} $GITHUB_WORKSPACE \;
+
 
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
