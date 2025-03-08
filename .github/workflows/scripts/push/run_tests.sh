@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # check that we have a single argument
-if [ "$#" -ne 2 ]; then
-  if [ "$#" -eq 1 ]; then
+if [ "$#" -ne 1 ]; then
+  if [ "$#" -eq 0 ]; then
     echo "ERROR: expected the path to the test project but no arguments were provided."
   else
     echo "ERROR: expected one argument (a path to a test project) but $# were provided."
