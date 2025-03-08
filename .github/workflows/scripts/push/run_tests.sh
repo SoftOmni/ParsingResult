@@ -31,18 +31,20 @@ echo "Parent directory: $PARENT_DIRECTORY"
 
 # extract the current directory for later
 PROJECT_DIRECTORY=$(pwd)
-echo "Project directory: $PROJECT_DIRECTORY"
+echo "Project directory: \"$PROJECT_DIRECTORY\""
 
 echo "PROJECT_DIRECTORY=$PROJECT_DIRECTORY" >> "$GITHUB_ENV"
 
 cd "$PARENT_DIRECTORY" || exit 3
 
-echo "Changed directory successfully to $PROJECT_DIRECTORY"
+echo "Changed directory successfully to \"$PARENT_DIRECTORY\""
 echo "Running tests:"
 
 dotnet test --configuration Release --framework "$3" --logger "trx;LogFileName=$2/test_results/$3/test_results.trx" --no-build
+wait "$!" # Wait for dotnet test to finish
 
 echo "Changing back to main directory \"$PROJECT_DIRECTORY\""
 cd "$PROJECT_DIRECTORY" || exit  5
 
-echo "Changed directory successfully to $PROJECT_DIRECTORY"
+
+echo "Changed directory successfully to \"$PROJECT_DIRECTORY\""
