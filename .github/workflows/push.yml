@@ -101,7 +101,7 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/setup-directory.sh" "${{ matrix.dotnet_version }}" "${GITHUB_WORKSPACE}"
 
       - name: Run tests
-        run: dotnet test "${{ matrix.test_project }}" --configuration Release --framework ${{ matrix.dotnet_version }} --logger "trx;LogFileName=${GITHUB_WORKSPACE}/test_results/${{ matrix.dotnet_version }}/test_results.trx" --no-build
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run_tests.sh" "${{ matrix.test_project }}" "${GITHUB_WORKSPACE}" "${{ matrix.dotnet_version }}"
 
       - name: debug tree
         run: tree -a
