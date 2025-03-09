@@ -24,7 +24,7 @@ jobs:
     needs: generate-matrix
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
-      highest: ${{ needs.generate-matrix.outputs.highest }}
+      highest: ${{ steps.sdk-version-highest.outcome }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,6 +32,10 @@ jobs:
       - name: Generate test matrix with projects and frameworks
         id: set-test-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/generate-project-matrix.sh" "${GITHUB_WORKSPACE}" '${{ needs.generate-matrix.outputs.matrix }}'
+        
+      - name: Determine .NET SDK version for testing
+        id: sdk-version-highest
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-tests.sh" "${{ needs.generate-matrix.outputs.highest }}"
 
       - name: Debug test-matrix output
         run: |
