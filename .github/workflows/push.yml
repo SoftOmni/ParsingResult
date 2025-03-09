@@ -36,40 +36,9 @@ jobs:
         run: |
           echo "Generated Matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}"
         shell: bash
-
-  build:
-    needs: generate-matrix
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Determine .NET SDK version for build (highest)
-        id: sdk-version-build
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-build.sh" ${{ needs.generate-matrix.outputs.highest }}
-
-      - name: Setup .NET for build
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: ${{ steps.sdk-version-build.outputs.sdk_version }}
-
-      - name: Set VERSION variable from tag or commit
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag.sh"
-
-      - name: Build solution using highest .NET version
-        run: dotnet build --configuration Release /p:Version=${{ env.VERSION }}
-        shell: bash
-
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifacts
-          path: |
-            **/bin/Release/
-          retention-days: 1
   
   test:
-    needs: [ generate-test-matrix, build ]
+    needs: [ generate-test-matrix ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -104,7 +73,7 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/run_tests.sh" "${{ matrix.test_project }}"
 
       - name: Run tests
-        run: dotnet test --configuration Release --framework ${{ matrix.dotnet_version }} --logger "trx;LogFileName=${GITHUB_WORKSPACE}/test_results/${{ matrix.dotnet_version }}/test_results.trx" --no-build
+        run: dotnet test --configuration Release --framework ${{ matrix.dotnet_version }} --logger "trx;LogFileName=${GITHUB_WORKSPACE}/test_results/${{ matrix.dotnet_version }}/test_results.trx"
         working-directory: ${{ env.PARENT_DIRECTORY }}
         id: tests
 
