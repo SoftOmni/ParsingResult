@@ -24,7 +24,7 @@ jobs:
     needs: generate-matrix
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
-      highest: ${{ steps.sdk-version-highest.outcome }}
+      highest: ${{ steps.sdk-version-highest.outputs.sdk_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
