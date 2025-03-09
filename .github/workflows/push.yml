@@ -86,6 +86,18 @@ jobs:
           name: test-results-${{ matrix.dotnet_version }}
           path: "test_results/${{ matrix.dotnet_version }}/*.trx"
 
+      - name: Save .NET versions used
+        run: echo "${{ matrix }}" >> dotnet-versions.txt
+          
+      - name: Upload build artifacts
+        if: steps.tests.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts-${{ matrix.dotnet_version }}
+          path: |
+            **/bin/Release/
+          retention-days: 1
+
       - name: Report test results
         if: always()
         uses: dorny/test-reporter@v1

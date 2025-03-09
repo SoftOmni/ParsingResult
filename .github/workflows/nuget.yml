@@ -7,20 +7,33 @@ on:
 
 jobs:
   publish:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      startsWith(github.event.workflow_run.head_branch, 'refs/tags/') &&
+      matches(github.event.workflow_run.head_branch, '^refs/tags/[0-9]+\\.[0-9]+\\.[0-9]+$')
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Download .NET versions artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: dotnet-versions
+          path: ./data/versions
+        
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-artifacts
-          path: ./artifacts
+          path: ./data/artifacts
+          
+      - name: Determine highest .NET version
+        id: highest-dotnet
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-highest-version.sh"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.0.x'
+          dotnet-version: ${{ steps.highest-dotnet.outputs.DOTNET_VERSION }}
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.SOFTOMNI_NUGET_KEY }}
 
