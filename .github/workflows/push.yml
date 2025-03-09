@@ -24,6 +24,7 @@ jobs:
     needs: generate-matrix
     outputs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
+      highest: ${{ needs.generate-matrix.outputs.highest }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,7 +56,7 @@ jobs:
       - name: Setup .NET for test
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ steps.sdk-version-test.outputs.sdk_version }}
+          dotnet-version: ${{ needs.generate-test-matrix.outputs.highest }}
 
       - name: Set VERSION variable from tag or commit
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-version-tag-for-tests.sh"
