@@ -48,12 +48,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-          path: .
-
       - name: Determine .NET SDK version for testing
         id: sdk-version-test
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-dotnet-version-for-tests.sh" "${{ matrix.dotnet_version }}"
