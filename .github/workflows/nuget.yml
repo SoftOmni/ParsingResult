@@ -19,7 +19,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: push-reference
-          path: "${GITHUB_WORKSPACE}"/.
+          path: ${{ github.workspace }}/.
         
       - name: Extract git reference data
         id: git-data
