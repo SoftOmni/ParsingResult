@@ -87,7 +87,7 @@ jobs:
         run: tree -a
         
       - name: Publish git reference artifact
-        if: always()
+        if: always() && matrix.dotnet_version == needs.generate-test-matrix.outputs.highest
         uses: actions/upload-artifact@v4
         with:
           name: push-reference
