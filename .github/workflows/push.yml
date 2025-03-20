@@ -5,6 +5,10 @@ on:
     branches:
       - "*"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   generate-matrix:
     runs-on: ubuntu-latest
@@ -76,8 +80,18 @@ jobs:
         working-directory: ${{ env.PARENT_DIRECTORY }}
         id: tests
 
-      - name: debug tree
+      - name: Save git reference data into a file
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/ref_saving.sh" "${{ github.ref }}"
+        
+      - name: Debug tree
         run: tree -a
+        
+      - name: Publish git reference artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: push-reference
+          path: "github_refs.wd"
 
       - name: Publish test results artifact
         if: always()

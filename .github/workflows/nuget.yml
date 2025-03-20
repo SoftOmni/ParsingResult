@@ -5,18 +5,30 @@ on:
     workflows: [ "Build & Test" ]
     types: [ completed ]
 
+concurrency:
+  group: nuget-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   publish:
     if: |
-      github.event.workflow_run.conclusion == 'success' &&
-      startsWith(github.event.workflow_run.head_branch, 'refs/tags/')
+      github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Download git reference data
+        uses: actions/download-artifact@v4
+        with:
+          name: push-reference
+          path: "${GITHUB_WORKSPACE}"/.
+        
+      - name: Extract git reference data
+        id: git-data
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-git-ref-data.sh"
+        
       - name: Validate tag format
         run: |
-          TAG_NAME="${{ github.event.workflow_run.head_branch }}"
-          TAG_NAME="${TAG_NAME#refs/tags/}"  # Remove refs/tags/ prefix
+          TAG_NAME="${{ steps.git-data.outputs.GIT_TAG }}"
           if [[ -z "$TAG_NAME" ]]; then
             echo "No tag found. Skipping publish."
             exit 0
