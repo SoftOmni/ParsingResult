@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Ensure a .NET version is provided
-if [[ ! "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  echo "Error: Please provide the .NET version in X.Y.Z format (e.g., 6.0.0)."
+if [[ ! "$1" =~ ^dotnet[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: Please provide the .NET version in dotnetX.Y format (e.g., dotnet6.0)."
   echo "Usage: $0 <dotnet_version>"
   exit 1
 fi
