@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Ensure a .NET version is provided
-if [[ ! "$1" =~ ^dotnet[0-9]+\.[0-9]+$ ]]; then
-  echo "Error: Please provide the .NET version in dotnetX.Y format (e.g., dotnet6.0)."
+if [[ ! "$1" =~ ^net[0-9]+\.[0-9]+$ ]]; then
+  echo "Error: Please provide the .NET version in netX.Y format (e.g., net6.0)."
   echo "Usage: $0 <dotnet_version>"
   exit 1
 fi
 
-DOTNET_VERSION=$(echo "$1" | grep -oP '^[0-9]+\.[0-9]+')
+DOTNET_VERSION="$1"
 OUTPUT_ZIP="release_bin_files.zip"
 
 # Find all non-test project directories (exclude directories with 'Test' in their name)
