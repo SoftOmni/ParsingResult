@@ -54,6 +54,8 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
       fail-fast: false
+    outputs: 
+      highest: ${{ steps.sdk-version-highest.outputs.sdk_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -135,7 +137,7 @@ jobs:
         
       - name: Create build artifacts zip file
         if: needs.test.result == 'success'
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build-saving.sh" "${{ matrix.dotnet_version }}" save
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build-saving.sh" "${{ needs.test.outputs.highest }}"
 
       - name: Upload build artifacts zip file to cache
         if: needs.test.result == 'success'
