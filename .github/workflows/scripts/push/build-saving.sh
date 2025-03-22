@@ -25,7 +25,7 @@ for PROJECT_DIR in $PROJECT_DIRS; do
 done
 
 # Create the zip file
-if [ "$(ls -A $TEMP_DIR)" ]; then
+if [ "$(ls -A "$TEMP_DIR")" ]; then
   zip -r "$OUTPUT_ZIP" "$TEMP_DIR"/*
   echo "Created zip file: $OUTPUT_ZIP"
 else
