@@ -94,10 +94,10 @@ jobs:
         
       - name: Publish git reference artifact
         if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
-        uses: actions/upload-artifact@v4
+        uses: actions/cache@v4
         with:
-          name: push-reference
           path: "github_refs.wd"
+          key: push-reference
 
       - name: Publish test results artifact
         if: always()
@@ -125,3 +125,23 @@ jobs:
           name: .NET Tests (${{ matrix.dotnet_version }})
           path: "test_results/${{ matrix.dotnet_version }}/*.trx"
           reporter: dotnet-trx
+
+  upload:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifacts for every version
+        uses: actions/download-artifact@v4
+        
+      - name: Create build artifacts zip file
+        if: needs.test.outcome == 'success'
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build_saving.sh" "${{ matrix.dotnet_version }}" save
+
+      - name: Upload build artifacts zip file to cache
+        if: needs.test.outcome == 'success'
+        uses: actions/cache@v3
+        with:
+          path: release_bin_files.zip
+          key: build-artifacts-${{ github.ref }}
+          restore-keys: |
+            build-artifacts
