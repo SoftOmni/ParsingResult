@@ -134,6 +134,9 @@ jobs:
     steps:
       - name: Download build artifacts for every version
         uses: actions/download-artifact@v4
+
+      - name: Debug tree
+        run: tree -a
         
       - name: Create build artifacts zip file
         if: needs.test.result == 'success'
