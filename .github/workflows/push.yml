@@ -135,7 +135,7 @@ jobs:
         
       - name: Create build artifacts zip file
         if: needs.test.result == 'success'
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build_saving.sh" "${{ matrix.dotnet_version }}" save
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build-saving.sh" "${{ matrix.dotnet_version }}" save
 
       - name: Upload build artifacts zip file to cache
         if: needs.test.result == 'success'
