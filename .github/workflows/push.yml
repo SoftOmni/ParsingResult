@@ -55,7 +55,7 @@ jobs:
         include: ${{ fromJson(needs.generate-test-matrix.outputs.test-matrix) }}
       fail-fast: false
     outputs: 
-      highest: ${{ steps.sdk-version-highest.outputs.sdk_version }}
+      highest: ${{ needs.generate-test-matrix.outputs.highest }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
