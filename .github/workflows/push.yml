@@ -95,6 +95,7 @@ jobs:
           echo "Highest Version: ${{ needs.generate-test-matrix.outputs.dot_highest }}"
       
       - name: Delete presently stored git reference artifact
+        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/delete-ref-cache.sh"
         env: 
           GITHUB_BEARER_TOKEN : ${{ secrets.TOKEN_GITHUB }}
