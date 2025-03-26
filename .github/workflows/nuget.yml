@@ -39,7 +39,7 @@ jobs:
         
       - name: Validate tag format
         run: |
-          TAG_NAME="${{ steps.git-data.outputs.GIT_TAG }}"
+          TAG_NAME="${{ env.GIT_TAG }}"
           if [[ -z "$TAG_NAME" ]]; then
             echo "No tag found. Skipping publish."
             exit 0
