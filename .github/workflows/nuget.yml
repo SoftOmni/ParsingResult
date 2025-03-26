@@ -34,7 +34,7 @@ jobs:
           
           # Optionally, export the variables so they are accessible outside the script
           echo "GIT_REFERENCE=${GIT_REFERENCE}" >> "$GITHUB_ENV"
-          echo "GIT_TAG=${GIT_TAG}" >> "$GIT_TAG"
+          echo "GIT_TAG=${GIT_TAG}" >> "$GITHUB_ENV"
         shell: bash
         
       - name: Validate tag format
