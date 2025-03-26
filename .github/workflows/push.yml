@@ -5,6 +5,8 @@ on:
     branches:
       - "*"
 
+run-name: Build & Test ${{ github.event.head_commit.message }}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
