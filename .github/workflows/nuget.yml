@@ -8,6 +8,8 @@ on:
 concurrency:
   group: nuget-${{ github.ref }}
   cancel-in-progress: false
+  
+run-name: Publish to NuGet if necessary
 
 jobs:
   publish:
@@ -42,25 +44,22 @@ jobs:
           TAG_NAME="${{ env.GIT_TAG }}"
           if [[ -z "$TAG_NAME" ]]; then
             echo "No tag found. Skipping publish."
-            exit 0
-          fi
-          if [[ ! "$TAG_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            exit 78
+          elif [ "No tag" -eq "$TAG_NAME" ]; then
+            echo "No tag found. Skipping publish."
+            exit 78
+          elif [[ ! "$TAG_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "Tag format invalid: $TAG_NAME. Skipping publish."
-            exit 0
+            exit 78
           fi
+          
           echo "Valid tag: $TAG_NAME"
-      
-      - name: Download .NET versions artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dotnet-versions
-          path: ./data/versions
+        shell: bash
         
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifacts
-          path: ./data/artifacts
+      - name: Checkout specific reference
+        run: git fetch origin $GIT_REFERENCE && git checkout $GIT_REFERENCE
+        env:
+          GIT_REFERENCE: ${{ env.GIT_REFERENCE }}
           
       - name: Determine highest .NET version
         id: highest-dotnet
