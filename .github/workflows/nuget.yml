@@ -1,4 +1,4 @@
-name: Publish to NuGet
+name: Publish to NuGet (may fail to indicate skip)
 
 on:
   workflow_run:
@@ -60,6 +60,9 @@ jobs:
         run: git fetch origin $GIT_REFERENCE && git checkout $GIT_REFERENCE
         env:
           GIT_REFERENCE: ${{ env.GIT_REFERENCE }}
+          
+      - name: Check project version
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/check-project-version.sh" "${{ env.GIT_TAG }}"
           
       - name: Determine highest .NET version
         id: highest-dotnet
