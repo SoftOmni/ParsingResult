@@ -55,9 +55,12 @@ jobs:
           
           echo "Valid tag: $TAG_NAME"
         shell: bash
-        
+
+      - name: Checkout repository
+        uses: actions/checkout@v4      
+      
       - name: Checkout specific reference
-        run: git fetch origin $GIT_REFERENCE && git checkout $GIT_REFERENCE
+        run: git checkout $GIT_REFERENCE
         env:
           GIT_REFERENCE: ${{ env.GIT_REFERENCE }}
           
