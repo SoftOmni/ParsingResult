@@ -25,6 +25,7 @@ for PROJECT_FILE in $PROJECT_FILES; do
   TARGET=$(grep -oPm1 "(?<=<Version>)(.*)(?=</Version>)" "$PROJECT_FILE" || true)
   echo "Debug print: $TARGET"
   if [[ "$TARGET" =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "Debug print: Adding $TARGET"
     VERSIONS+=("$TARGET")
   fi
 done
