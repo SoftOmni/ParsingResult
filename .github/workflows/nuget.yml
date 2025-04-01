@@ -23,44 +23,18 @@ jobs:
           path: github_refs.wd
           key: push-reference
       
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Extract git reference data
         id: git-data
-        run: |
-          if [ ! -f "github_refs.wd" ]; then
-            echo "The file ${GITHUB_WORKSPACE}/github_refs.wd does not exist"
-            exit 1
-          fi
-          
-          GIT_REFERENCE=$(sed -n '1p' github_refs.wd)  # Read the first line (git reference) into the variable 'GIT_REFERENCE'
-          GIT_TAG=$(sed -n '2p' github_refs.wd)  # Read the second line (tag if present) into the variable 'tag'
-          
-          # Optionally, export the variables so they are accessible outside the script
-          echo "GIT_REFERENCE=${GIT_REFERENCE}" >> "$GITHUB_ENV"
-          echo "GIT_TAG=${GIT_TAG}" >> "$GITHUB_ENV"
-        shell: bash
-        
-      - name: Validate tag format
-        run: |
-          TAG_NAME="${{ env.GIT_TAG }}"
-          if [[ -z "$TAG_NAME" ]]; then
-            echo "No tag found. Skipping publish."
-            exit 78
-          elif [ "No tag" -eq "$TAG_NAME" ]; then
-            echo "No tag found. Skipping publish."
-            exit 78
-          elif [[ ! "$TAG_NAME" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Tag format invalid: $TAG_NAME. Skipping publish."
-            exit 78
-          fi
-          
-          echo "Valid tag: $TAG_NAME"
-        shell: bash
+        run: bash "${GITHUB_WORKFLOW}/.github/workflows/nuget/extract-git-ref-data.sh"
 
-      - name: Checkout repository
-        uses: actions/checkout@v4      
+      - name: Validate tag format
+        run: bash "${GITHUB_WORKFLOW}/.github/workflows/nuget/validate-tag-format.sh" "${{ env.GIT_TAG }}"
       
       - name: Checkout specific reference
-        run: git checkout $GIT_REFERENCE
+        run: git checkout "$GIT_REFERENCE"
         env:
           GIT_REFERENCE: ${{ env.GIT_REFERENCE }}
           
