@@ -6,6 +6,11 @@ if [ -z "$EXPECTED_VERSION" ]; then
   exit 1
 fi
 
+if ! [[ "$EXPECTED_VERSION" =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
+    echo "Error: The expected version argument must follow [0-9]+\.[0-9]+\.[0-9]+ but did not: $EXPECTED_VERSION"
+    exit 1
+fi
+
 set -e
 SCRIPT_PATH=$(pwd)
 
@@ -18,7 +23,7 @@ VERSIONS=()
 for PROJECT_FILE in $PROJECT_FILES; do
   # Extract single target framework (ignore if not present)
   TARGET=$(grep -oPm1 "(?<=<Version>)(.*)(?=</Version>)" "$PROJECT_FILE" || true)
-  if [[ "$TARGET" =~ [0-9]+\.[0-9]+\.[0-9] ]]; then
+  if [[ "$TARGET" =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
     VERSIONS+=("$TARGET")
   fi
 done
