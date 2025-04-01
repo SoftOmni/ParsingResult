@@ -23,6 +23,7 @@ VERSIONS=()
 for PROJECT_FILE in $PROJECT_FILES; do
   # Extract single target framework (ignore if not present)
   TARGET=$(grep -oPm1 "(?<=<Version>)(.*)(?=</Version>)" "$PROJECT_FILE" || true)
+  echo "Debug print: $TARGET"
   if [[ "$TARGET" =~ [0-9]+\.[0-9]+\.[0-9]+ ]]; then
     VERSIONS+=("$TARGET")
   fi
