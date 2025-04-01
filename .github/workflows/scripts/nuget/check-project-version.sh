@@ -6,7 +6,6 @@ if [ -z "$EXPECTED_VERSION" ]; then
   exit 1
 fi
 
-# Use ^ and $ anchors for a stricter match
 if ! [[ "$EXPECTED_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
     echo "Error: The expected version argument must follow X.Y.Z format but did not: $EXPECTED_VERSION"
     exit 1
@@ -38,8 +37,8 @@ for PROJECT_FILE in $PROJECT_FILES; do
       else
         echo "Debug print: Ignoring non-matching value '$TARGET' in $PROJECT_FILE"
       fi
-  # else
-      # echo "Debug print: No <Version> tag found or tag is empty in $PROJECT_FILE" # Optional debug
+  else
+      echo "Debug print: No <Version> tag found or tag is empty in $PROJECT_FILE"
   fi
 done
 
