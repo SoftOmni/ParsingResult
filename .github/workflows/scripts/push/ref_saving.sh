@@ -32,7 +32,7 @@ echo "GIT_HASH=${GIT_HASH}"
 echo "GIT_TAG=${GIT_TAG}"
 echo "--- End Script Output ---"
 
-#  Export to GitHub Actions environment ---
+# --- Export to GitHub Actions environment ---
 if [ -n "$GITHUB_ENV" ] && [ -f "$GITHUB_ENV" ]; then
   echo "Info: Exporting GIT_HASH and GIT_TAG to GITHUB_ENV"
   echo "GIT_HASH=${GIT_HASH}" >> "$GITHUB_ENV"
