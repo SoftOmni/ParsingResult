@@ -18,7 +18,7 @@ echo "Info: Git commit hash retrieved: ${GIT_HASH}"
 
 # --- Get Git Tag (if exists) ---
 echo "Info: Attempting to retrieve Git tag for the current commit..."
-GIT_TAG=$(git describe --tags --exact-match 2>/dev/null)
+GIT_TAG=$(git describe --tags --exact-match 2>/dev/null || true)
 if [ -z "$GIT_TAG" ]; then
   GIT_TAG="No tag"
   echo "Info: No exact Git tag found for the current commit."
