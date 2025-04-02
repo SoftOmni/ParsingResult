@@ -148,6 +148,10 @@ jobs:
       - name: Download build artifacts for every version
         uses: actions/download-artifact@v4
         
+      - name: Debug tree
+        run: tree -a
+        shell: bash
+        
       - name: Create build artifacts zip file
         if: needs.test.result == 'success'
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build-saving.sh" "${{ needs.test.outputs.highest }}"
