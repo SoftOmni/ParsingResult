@@ -64,7 +64,7 @@ find . -type f -name "*.csproj" \
     source_bin_dir="build-artifacts-${DOTNET_VERSION}/${project_name}/bin/Release/${DOTNET_VERSION}"
 
     echo "Info: Processing project source: ${project_file}"
-    echo "Info: Looking for artifacts in: ${source_bin_dir}" # Modified echo for clarity
+    echo "Info: Looking for artifacts in: ${source_bin_dir}"
 
     # Check if the specific Release directory exists and is not empty
     if [ -d "$source_bin_dir" ] && [ "$(ls -A "$source_bin_dir")" ]; then
