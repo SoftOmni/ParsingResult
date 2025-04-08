@@ -26,6 +26,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         
+      - name: Debug tree
+        run: tree -a
+        shell: bash
+        
       - name: Extract git reference data
         id: git-data
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-git-ref-data.sh"
