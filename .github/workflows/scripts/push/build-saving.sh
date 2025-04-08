@@ -28,15 +28,22 @@ if [ "$MODE" == "all" ]; then
   ARTIFACTS_ROOT_PATTERN="build-artifacts-net*.*" # Pattern to find root dirs
   SEARCH_ROOT="." # Search from the current directory
   # Define the path pattern to find *any* netX.Y dir within any matching root dir
+  # Adjusted PATH_PATTERN to be relative from SEARCH_ROOT which is '.'
   PATH_PATTERN="./${ARTIFACTS_ROOT_PATTERN}/*/bin/Release/net[0-9]*.[0-9]*"
   OUTPUT_ZIP="release_bin_files_all_versions.zip"
   REPORTING_VERSION_TEXT="all found versions"
 
   # --- Validate At Least One Artifacts Root Directory Exists ---
-  # Use ls -d which exits cleanly if no match is found, suppress output
-  if ! ls -d "${ARTIFACTS_ROOT_PATTERN}" > /dev/null 2>&1; then
+  # Use find to check for existence of at least one matching directory
+  # -maxdepth 1: Don't search subdirectories
+  # -type d: Match only directories
+  # -name "${ARTIFACTS_ROOT_PATTERN}": Match the pattern
+  # -print -quit: Print the first match and exit find immediately (efficient)
+  # grep -q .: Quietly check if find printed *anything* (i.e., found a match)
+  # The 'if ! ...' triggers if grep returns non-zero (meaning find found nothing)
+  if ! find . -maxdepth 1 -type d -name "${ARTIFACTS_ROOT_PATTERN}" -print -quit | grep -q .; then
     echo "Error: No artifact root directories matching '${ARTIFACTS_ROOT_PATTERN}' found in the current directory."
-    echo "Error: Please ensure projects have been built using the corresponding build script/process."
+    echo "Error: Please ensure artifacts have been downloaded or built correctly."
     exit 1
   fi
   echo "Info: Searching for artifacts across all roots matching: ${ARTIFACTS_ROOT_PATTERN}"
