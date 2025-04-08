@@ -31,15 +31,23 @@ echo "GIT_HASH=${GIT_HASH}"
 echo "GIT_TAG=${GIT_TAG}"
 echo "--- End Script Logging Output ---"
 
-# --- Set GitHub Actions Step Outputs ---
-# This is the crucial part for making values available via steps.<step_id>.outputs
-echo "Info: Setting step outputs..."
-echo "::set-output name=GIT_HASH::${GIT_HASH}"
-echo "::set-output name=GIT_TAG::${GIT_TAG}"
-echo "Info: Step outputs set."
+# --- Set GitHub Actions Step Outputs via Environment File ---
+# Check if the GITHUB_OUTPUT environment variable is set and is a file
+if [ -n "$GITHUB_OUTPUT" ] && [ -f "$GITHUB_OUTPUT" ]; then
+    echo "Info: Setting step outputs via GITHUB_OUTPUT file..."
+    # Append outputs in KEY=VALUE format to the file specified by GITHUB_OUTPUT
+    echo "GIT_HASH=${GIT_HASH}" >> "$GITHUB_OUTPUT"
+    echo "GIT_TAG=${GIT_TAG}" >> "$GITHUB_OUTPUT"
+    echo "Info: Step outputs GIT_HASH and GIT_TAG written to GITHUB_OUTPUT."
+else
+    echo "Error: GITHUB_OUTPUT environment variable is not set or not a file."
+    echo "Error: Cannot set step outputs using the required environment file method."
+    exit 1 # Fail the step if the modern output mechanism isn't available
+fi
+
 
 # --- Export to GitHub Actions environment (Optional - only if needed by later steps IN THE SAME JOB) ---
-# If you don't need these as env vars later in the 'test' job, you can remove this block.
+# This remains unchanged, but consider if you still need it now that outputs are set correctly.
 if [ -n "$GITHUB_ENV" ] && [ -f "$GITHUB_ENV" ]; then
   echo "Info: Exporting GIT_HASH and GIT_TAG to GITHUB_ENV (for potential use in subsequent steps of this job)"
   echo "GIT_HASH=${GIT_HASH}" >> "$GITHUB_ENV"
