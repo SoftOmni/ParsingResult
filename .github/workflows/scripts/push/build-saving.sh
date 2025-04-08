@@ -8,31 +8,70 @@ set -e
 # The return value of a pipeline is the status of the last command to exit with a non-zero status.
 set -o pipefail
 
-# --- Argument Validation ---
-dotnet_version_regex='^net[0-9]+\.[0-9]+$'
-if [[ ! "$1" =~ $dotnet_version_regex ]]; then
-  echo "Error: Please provide the target .NET version in netX.Y format (e.g., net8.0)."
-  echo "Usage: $0 <dotnet_version>"
-  exit 1
+# --- Determine Mode (Single Version vs. All Versions) ---
+MODE="single" # Default mode
+if [ -z "$1" ]; then
+  MODE="all"
+  echo "Info: No .NET version specified. Script will process artifacts for all found versions."
+else
+  MODE="single"
+  DOTNET_VERSION_ARG="$1"
+  echo "Info: Specific .NET version requested: ${DOTNET_VERSION_ARG}"
 fi
 
-DOTNET_VERSION="$1"
-# Define the root directory where build artifacts are stored
-ARTIFACTS_ROOT_DIR="build-artifacts-${DOTNET_VERSION}"
-OUTPUT_ZIP="release_bin_files_${DOTNET_VERSION}.zip" # Make zip name version specific
+# --- Variable Initialization based on Mode ---
 SCRIPT_START_DIR=$(pwd) # Remember where we started
+projects_packaged=0
+total_projects_found_in_artifacts=0
 
-echo "Info: Target .NET Version: ${DOTNET_VERSION}"
-echo "Info: Searching for artifacts in root: ${ARTIFACTS_ROOT_DIR}"
-echo "Info: Output Zip File: ${OUTPUT_ZIP}"
+if [ "$MODE" == "all" ]; then
+  ARTIFACTS_ROOT_PATTERN="build-artifacts-net*.*" # Pattern to find root dirs
+  SEARCH_ROOT="." # Search from the current directory
+  # Define the path pattern to find *any* netX.Y dir within any matching root dir
+  PATH_PATTERN="./${ARTIFACTS_ROOT_PATTERN}/*/bin/Release/net[0-9]*.[0-9]*"
+  OUTPUT_ZIP="release_bin_files_all_versions.zip"
+  REPORTING_VERSION_TEXT="all found versions"
 
-# --- Validate Artifacts Root Directory ---
-if [ ! -d "${ARTIFACTS_ROOT_DIR}" ]; then
-  echo "Error: Artifacts root directory '${ARTIFACTS_ROOT_DIR}' not found."
-  echo "Error: Please ensure the projects have been built using the corresponding build script/process"
-  echo "Error: which places outputs in '${ARTIFACTS_ROOT_DIR}'."
-  exit 1
+  # --- Validate At Least One Artifacts Root Directory Exists ---
+  # Use ls -d which exits cleanly if no match is found, suppress output
+  if ! ls -d "${ARTIFACTS_ROOT_PATTERN}" > /dev/null 2>&1; then
+    echo "Error: No artifact root directories matching '${ARTIFACTS_ROOT_PATTERN}' found in the current directory."
+    echo "Error: Please ensure projects have been built using the corresponding build script/process."
+    exit 1
+  fi
+  echo "Info: Searching for artifacts across all roots matching: ${ARTIFACTS_ROOT_PATTERN}"
+
+else # MODE == "single"
+  # --- Argument Validation for Single Version Mode ---
+  dotnet_version_regex='^net[0-9]+\.[0-9]+$'
+  if [[ ! "$DOTNET_VERSION_ARG" =~ $dotnet_version_regex ]]; then
+    echo "Error: Please provide the target .NET version in netX.Y format (e.g., net8.0)."
+    echo "Usage: $0 [<dotnet_version>]"
+    echo "       (Omit <dotnet_version> to package all found versions)"
+    exit 1
+  fi
+
+  DOTNET_VERSION="$DOTNET_VERSION_ARG"
+  ARTIFACTS_ROOT_DIR="build-artifacts-${DOTNET_VERSION}"
+  OUTPUT_ZIP="release_bin_files_${DOTNET_VERSION}.zip" # Make zip name version specific
+  REPORTING_VERSION_TEXT="target framework '${DOTNET_VERSION}'"
+  SEARCH_ROOT="${ARTIFACTS_ROOT_DIR}" # Search within the specific root
+  # Define the path pattern relative to the specific root dir
+  PATH_PATTERN="*/bin/Release/${DOTNET_VERSION}"
+
+  echo "Info: Target .NET Version: ${DOTNET_VERSION}"
+  echo "Info: Searching for artifacts in root: ${ARTIFACTS_ROOT_DIR}"
+
+  # --- Validate Specific Artifacts Root Directory ---
+  if [ ! -d "${ARTIFACTS_ROOT_DIR}" ]; then
+    echo "Error: Artifacts root directory '${ARTIFACTS_ROOT_DIR}' not found."
+    echo "Error: Please ensure the projects have been built using the corresponding build script/process"
+    echo "Error: which places outputs in '${ARTIFACTS_ROOT_DIR}'."
+    exit 1
+  fi
 fi
+
+echo "Info: Output Zip File: ${OUTPUT_ZIP}"
 
 # --- Temporary Directory ---
 # Create a temporary directory for staging files
@@ -44,32 +83,27 @@ trap 'EXIT_CODE=$?; echo "Info: Cleaning up temporary directory: ${TEMP_DIR}"; r
 echo "Info: Created temporary directory: ${TEMP_DIR}"
 
 # --- Find and Process Artifact Directories ---
-projects_packaged=0
-total_projects_found_in_artifacts=0
+# Use process substitution (< <(...)) to run the while loop in the current shell.
+# The find command parameters are set based on the MODE determined earlier.
+echo "Info: Searching for final artifact directories..."
+echo "Info: Search Root: '${SEARCH_ROOT}'"
+echo "Info: Path Pattern: '${PATH_PATTERN}'"
 
-# Find all directories matching the final artifact path structure within the artifacts root.
-# Use process substitution (< <(...)) instead of a pipe (|)
-# This prevents the while loop from running in a subshell, allowing variable
-# modifications (projects_packaged, total_projects_found_in_artifacts) to persist.
-# -print0 and read -d are used for safe handling of paths with spaces/special chars.
-echo "Info: Searching for final artifact directories within ${ARTIFACTS_ROOT_DIR}..."
 while IFS= read -r -d $'\0' source_bin_dir; do
 
     total_projects_found_in_artifacts=$((total_projects_found_in_artifacts + 1))
 
-    # Extract the project name from the path.
-    # Example path: build-artifacts-net8.0/MyProject.Lib/bin/Release/net8.0
-    # 1. Get parent dir: build-artifacts-net8.0/MyProject.Lib/bin/Release
-    # 2. Get parent dir: build-artifacts-net8.0/MyProject.Lib/bin
-    # 3. Get parent dir: build-artifacts-net8.0/MyProject.Lib
-    # 4. Get basename:   MyProject.Lib
+    # Extract the project name from the path. This logic works regardless of
+    # whether the path starts with './build-artifacts...' or just 'MyProject/...'
+    # because it works backwards from the known structure '.../ProjectName/bin/Release/netX.Y'
     project_name_dir=$(dirname "$(dirname "$(dirname "$source_bin_dir")")")
     project_name=$(basename "$project_name_dir")
+    # Extract the .NET version from the source directory for potential sub-folder structuring if needed later
+    source_dotnet_version=$(basename "$source_bin_dir")
 
-    echo "Info: Found potential artifacts for project: ${project_name} in ${source_bin_dir}"
+    echo "Info: Found potential artifacts for project: ${project_name} (${source_dotnet_version}) in ${source_bin_dir}"
 
     # --- Filter out Test Projects ---
-    # Check if the project name looks like a test project (case-insensitive)
     if [[ "$project_name" =~ \.[Tt]ests?$ || "$project_name" == *[Tt]est* ]]; then
         echo "Info: Skipping test project: ${project_name}"
         continue # Skip to the next found directory
@@ -77,46 +111,45 @@ while IFS= read -r -d $'\0' source_bin_dir; do
 
     # Check if the specific artifact directory is not empty
     if [ "$(ls -A "$source_bin_dir")" ]; then
-        echo "Info: Found non-empty artifact directory for non-test project: ${project_name}"
-        dest_proj_dir="${TEMP_DIR}/${project_name}"
+        echo "Info: Found non-empty artifact directory for non-test project: ${project_name} (${source_dotnet_version})"
+        # Structure within temp dir: ProjectName/netX.Y/ (optional, but good practice if mixing versions)
+        # If sticking to original structure (just ProjectName): dest_proj_dir="${TEMP_DIR}/${project_name}"
+        dest_proj_dir="${TEMP_DIR}/${project_name}" # Keeping original structure for simplicity
 
         echo "Info: Creating destination subdirectory: ${dest_proj_dir}"
         mkdir -p "$dest_proj_dir"
 
         echo "Info: Copying files from ${source_bin_dir} to ${dest_proj_dir}"
-        # Copy contents using 'cp -a' to preserve attributes, '.' ensures hidden files are copied too
+        # Copy contents using 'cp -a'. If multiple versions map to the same project name,
+        # the last one processed will overwrite previous ones in the TEMP_DIR.
+        # If this is undesirable, the dest_proj_dir needs to include the source_dotnet_version.
         if cp -a "$source_bin_dir/." "$dest_proj_dir/"; then
-             projects_packaged=$((projects_packaged + 1))
+             projects_packaged=$((projects_packaged + 1)) # Count successful packages
         else
             echo "Error: Failed to copy files from ${source_bin_dir} to ${dest_proj_dir}"
             # Let the script exit due to set -e
-            # Or explicitly exit if set -e is removed: exit 1
         fi
     else
         echo "Warning: Artifact directory '${source_bin_dir}' is empty for project '${project_name}'. Skipping packaging this one."
     fi
-done < <(find "${ARTIFACTS_ROOT_DIR}" -type d -path "*/bin/Release/${DOTNET_VERSION}" -print0)
+done < <(find "${SEARCH_ROOT}" -type d -path "${PATH_PATTERN}" -print0)
 
-echo "Info: Total potential project artifact directories found: ${total_projects_found_in_artifacts}"
+echo "Info: Total potential project artifact directories found matching pattern: ${total_projects_found_in_artifacts}"
 
 # --- Create Zip File ---
 if [ "$projects_packaged" -gt 0 ]; then
-    echo "Info: Packaged files from ${projects_packaged} non-test projects."
+    echo "Info: Copied artifacts from ${projects_packaged} non-test project directories."
     echo "Info: Creating zip file: ${OUTPUT_ZIP}"
-    # Change directory to TEMP_DIR so the paths inside the zip are relative (e.g., MyProject/... instead of tmp/tmp.Xxx/MyProject/...)
-    # Zip contents of TEMP_DIR (which now contains sub-dirs per project)
-    if (cd "$TEMP_DIR" && zip -rq "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then # Use -q for quieter zip output
+    # Zip contents of TEMP_DIR
+    if (cd "$TEMP_DIR" && zip -rq "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then
         echo "Success: Created zip file: ${SCRIPT_START_DIR}/${OUTPUT_ZIP}"
     else
-        # This else block might not be reached if 'set -e' is active,
-        # as the script would exit on zip failure before executing the else.
         echo "Error: Failed to create zip file."
-        # EXIT trap will still handle cleanup
-        exit 1 # Explicit exit just in case set -e is bypassed somehow or removed
+        exit 1
     fi
 else
-    echo "Warning: No non-empty artifact directories found for any non-test projects in '${ARTIFACTS_ROOT_DIR}'."
-    echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for the target framework '${DOTNET_VERSION}'."
+    echo "Warning: No non-empty artifact directories found for any non-test projects."
+    echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for ${REPORTING_VERSION_TEXT}."
     echo "Warning: No zip file created."
 fi
 
