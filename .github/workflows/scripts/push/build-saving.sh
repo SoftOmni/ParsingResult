@@ -48,9 +48,12 @@ projects_packaged=0
 total_projects_found_in_artifacts=0
 
 # Find all directories matching the final artifact path structure within the artifacts root.
+# Use process substitution (< <(...)) instead of a pipe (|)
+# This prevents the while loop from running in a subshell, allowing variable
+# modifications (projects_packaged, total_projects_found_in_artifacts) to persist.
 # -print0 and read -d are used for safe handling of paths with spaces/special chars.
 echo "Info: Searching for final artifact directories within ${ARTIFACTS_ROOT_DIR}..."
-find "${ARTIFACTS_ROOT_DIR}" -type d -path "*/bin/Release/${DOTNET_VERSION}" -print0 | while IFS= read -r -d $'\0' source_bin_dir; do
+while IFS= read -r -d $'\0' source_bin_dir; do
 
     total_projects_found_in_artifacts=$((total_projects_found_in_artifacts + 1))
 
@@ -92,7 +95,7 @@ find "${ARTIFACTS_ROOT_DIR}" -type d -path "*/bin/Release/${DOTNET_VERSION}" -pr
     else
         echo "Warning: Artifact directory '${source_bin_dir}' is empty for project '${project_name}'. Skipping packaging this one."
     fi
-done
+done < <(find "${ARTIFACTS_ROOT_DIR}" -type d -path "*/bin/Release/${DOTNET_VERSION}" -print0)
 
 echo "Info: Total potential project artifact directories found: ${total_projects_found_in_artifacts}"
 
@@ -102,7 +105,7 @@ if [ "$projects_packaged" -gt 0 ]; then
     echo "Info: Creating zip file: ${OUTPUT_ZIP}"
     # Change directory to TEMP_DIR so the paths inside the zip are relative (e.g., MyProject/... instead of tmp/tmp.Xxx/MyProject/...)
     # Zip contents of TEMP_DIR (which now contains sub-dirs per project)
-    if (cd "$TEMP_DIR" && zip -r "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then
+    if (cd "$TEMP_DIR" && zip -rq "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then # Use -q for quieter zip output
         echo "Success: Created zip file: ${SCRIPT_START_DIR}/${OUTPUT_ZIP}"
     else
         # This else block might not be reached if 'set -e' is active,
