@@ -155,10 +155,6 @@ jobs:
       - name: Create build artifacts zip file
         if: needs.test.result == 'success'
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/build-saving.sh" "${{ needs.test.outputs.highest }}"
-        
-      - name: Debug tree
-        run: tree -a
-        shell: bash
 
       - name: Upload build artifacts zip file to cache
         if: needs.test.result == 'success'
