@@ -11,65 +11,70 @@ set -o pipefail
 # --- Argument Validation ---
 dotnet_version_regex='^net[0-9]+\.[0-9]+$'
 if [[ ! "$1" =~ $dotnet_version_regex ]]; then
-  echo "Error: Please provide the target .NET version in netX.Y format (e.g., net6.0)."
+  echo "Error: Please provide the target .NET version in netX.Y format (e.g., net8.0)."
   echo "Usage: $0 <dotnet_version>"
   exit 1
 fi
 
 DOTNET_VERSION="$1"
-OUTPUT_ZIP="release_bin_files.zip"
+# Define the root directory where build artifacts are stored
+ARTIFACTS_ROOT_DIR="build-artifacts-${DOTNET_VERSION}"
+OUTPUT_ZIP="release_bin_files_${DOTNET_VERSION}.zip" # Make zip name version specific
 SCRIPT_START_DIR=$(pwd) # Remember where we started
 
 echo "Info: Target .NET Version: ${DOTNET_VERSION}"
+echo "Info: Searching for artifacts in root: ${ARTIFACTS_ROOT_DIR}"
 echo "Info: Output Zip File: ${OUTPUT_ZIP}"
+
+# --- Validate Artifacts Root Directory ---
+if [ ! -d "${ARTIFACTS_ROOT_DIR}" ]; then
+  echo "Error: Artifacts root directory '${ARTIFACTS_ROOT_DIR}' not found."
+  echo "Error: Please ensure the projects have been built using the corresponding build script/process"
+  echo "Error: which places outputs in '${ARTIFACTS_ROOT_DIR}'."
+  exit 1
+fi
 
 # --- Temporary Directory ---
 # Create a temporary directory for staging files
 TEMP_DIR=$(mktemp -d)
 # Ensure temporary directory is cleaned up on script exit or interruption
-trap 'echo "Info: Cleaning up temporary directory: ${TEMP_DIR}"; rm -rf "${TEMP_DIR}"' EXIT HUP INT QUIT PIPE TERM
+# Use a more robust trap that also shows the exit code
+trap 'EXIT_CODE=$?; echo "Info: Cleaning up temporary directory: ${TEMP_DIR}"; rm -rf "${TEMP_DIR}"; exit $EXIT_CODE' EXIT HUP INT QUIT PIPE TERM
 
 echo "Info: Created temporary directory: ${TEMP_DIR}"
 
-# --- Find and Process Projects ---
-projects_processed=0
-files_found_to_zip=0
+# --- Find and Process Artifact Directories ---
+projects_packaged=0
+total_projects_found_in_artifacts=0
 
-# Find all .csproj files, excluding common build/hidden folders and test projects.
-# -print0 and read -d are used for safe handling of filenames with spaces/special chars.
-# We exclude paths containing '/test/' or ending in '.Tests.csproj' (case-insensitive)
-echo "Info: Searching for non-test .csproj files..."
-find . -type f -name "*.csproj" \
-    -not \( \
-        -path "*/bin/*" -o \
-        -path "*/obj/*" -o \
-        -path "*/.*/*" -o \
-        -path "./build-artifacts-*/*" \
-        -path "./test-results-*/*" \
-    \) \
-    -not \( \
-        -ipath "*test*/*.csproj" -o \
-        -ipath "*/*.tests.csproj" \
-     \) \
-    -print0 | while IFS= read -r -d $'\0' project_file; do
+# Find all directories matching the final artifact path structure within the artifacts root.
+# -print0 and read -d are used for safe handling of paths with spaces/special chars.
+echo "Info: Searching for final artifact directories within ${ARTIFACTS_ROOT_DIR}..."
+find "${ARTIFACTS_ROOT_DIR}" -type d -path "*/bin/Release/${DOTNET_VERSION}" -print0 | while IFS= read -r -d $'\0' source_bin_dir; do
 
-    projects_processed=$((projects_processed + 1))
-    # project_dir=$(dirname "$project_file") # We don't strictly need this anymore for the source_bin_dir path
-    # Use the csproj filename (without extension) as a subdirectory name for uniqueness
-    project_name=$(basename "$project_file" .csproj)
+    total_projects_found_in_artifacts=$((total_projects_found_in_artifacts + 1))
 
-    # --- Construct the path based on the known build artifacts structure ---
-    # Assumes build artifacts are in a root folder named 'build-artifacts-<dotnet_version>'
-    # and within that, the structure mirrors 'project_name/bin/Release/<dotnet_version>'
-    source_bin_dir="build-artifacts-${DOTNET_VERSION}/${project_name}/bin/Release/${DOTNET_VERSION}"
+    # Extract the project name from the path.
+    # Example path: build-artifacts-net8.0/MyProject.Lib/bin/Release/net8.0
+    # 1. Get parent dir: build-artifacts-net8.0/MyProject.Lib/bin/Release
+    # 2. Get parent dir: build-artifacts-net8.0/MyProject.Lib/bin
+    # 3. Get parent dir: build-artifacts-net8.0/MyProject.Lib
+    # 4. Get basename:   MyProject.Lib
+    project_name_dir=$(dirname "$(dirname "$(dirname "$source_bin_dir")")")
+    project_name=$(basename "$project_name_dir")
 
-    echo "Info: Processing project source: ${project_file}"
-    echo "Info: Looking for artifacts in: ${source_bin_dir}"
+    echo "Info: Found potential artifacts for project: ${project_name} in ${source_bin_dir}"
 
-    # Check if the specific Release directory exists and is not empty
-    if [ -d "$source_bin_dir" ] && [ "$(ls -A "$source_bin_dir")" ]; then
-        echo "Info: Found Release artifacts directory: ${source_bin_dir}"
-        # Destination path inside temp dir remains the same (uses project_name)
+    # --- Filter out Test Projects ---
+    # Check if the project name looks like a test project (case-insensitive)
+    if [[ "$project_name" =~ \.[Tt]ests?$ || "$project_name" == *[Tt]est* ]]; then
+        echo "Info: Skipping test project: ${project_name}"
+        continue # Skip to the next found directory
+    fi
+
+    # Check if the specific artifact directory is not empty
+    if [ "$(ls -A "$source_bin_dir")" ]; then
+        echo "Info: Found non-empty artifact directory for non-test project: ${project_name}"
         dest_proj_dir="${TEMP_DIR}/${project_name}"
 
         echo "Info: Creating destination subdirectory: ${dest_proj_dir}"
@@ -77,35 +82,38 @@ find . -type f -name "*.csproj" \
 
         echo "Info: Copying files from ${source_bin_dir} to ${dest_proj_dir}"
         # Copy contents using 'cp -a' to preserve attributes, '.' ensures hidden files are copied too
-        cp -a "$source_bin_dir/." "$dest_proj_dir/"
-        files_found_to_zip=$((files_found_to_zip + 1))
+        if cp -a "$source_bin_dir/." "$dest_proj_dir/"; then
+             projects_packaged=$((projects_packaged + 1))
+        else
+            echo "Error: Failed to copy files from ${source_bin_dir} to ${dest_proj_dir}"
+            # Let the script exit due to set -e
+            # Or explicitly exit if set -e is removed: exit 1
+        fi
     else
-        echo "Warning: Artifact directory '${source_bin_dir}' not found or is empty for project '${project_name}'. Skipping."
+        echo "Warning: Artifact directory '${source_bin_dir}' is empty for project '${project_name}'. Skipping packaging this one."
     fi
 done
 
-echo "Info: Total projects checked: ${projects_processed}"
+echo "Info: Total potential project artifact directories found: ${total_projects_found_in_artifacts}"
 
 # --- Create Zip File ---
-if [ "$files_found_to_zip" -gt 0 ]; then
-    echo "Info: Found files from ${files_found_to_zip} projects to include in the zip."
+if [ "$projects_packaged" -gt 0 ]; then
+    echo "Info: Packaged files from ${projects_packaged} non-test projects."
     echo "Info: Creating zip file: ${OUTPUT_ZIP}"
-    # Change directory to TEMP_DIR so the paths inside the zip are relative
+    # Change directory to TEMP_DIR so the paths inside the zip are relative (e.g., MyProject/... instead of tmp/tmp.Xxx/MyProject/...)
     # Zip contents of TEMP_DIR (which now contains sub-dirs per project)
-    # Check zip command exit status (though set -e should handle it)
-    if (cd "$TEMP_DIR" && zip -r "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then # <-- Command moved here
+    if (cd "$TEMP_DIR" && zip -r "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then
         echo "Success: Created zip file: ${SCRIPT_START_DIR}/${OUTPUT_ZIP}"
     else
-        # This else block might not even be reached if 'set -e' is active,
+        # This else block might not be reached if 'set -e' is active,
         # as the script would exit on zip failure before executing the else.
-        # However, it's good for clarity and robustness if set -e is removed.
         echo "Error: Failed to create zip file."
         # EXIT trap will still handle cleanup
-        exit 1
+        exit 1 # Explicit exit just in case set -e is bypassed somehow or removed
     fi
 else
-    echo "Warning: No non-empty 'bin/Release/${DOTNET_VERSION}' directories found for any non-test projects."
-    echo "Warning: Ensure the projects have been built successfully in 'Release' configuration for the target framework '${DOTNET_VERSION}'."
+    echo "Warning: No non-empty artifact directories found for any non-test projects in '${ARTIFACTS_ROOT_DIR}'."
+    echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for the target framework '${DOTNET_VERSION}'."
     echo "Warning: No zip file created."
 fi
 
