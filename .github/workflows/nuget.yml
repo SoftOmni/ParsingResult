@@ -28,10 +28,10 @@ jobs:
         
       - name: Extract git reference data
         id: git-data
-        run: bash "${GITHUB_WORKFLOW}/.github/workflows/scripts/nuget/extract-git-ref-data.sh"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-git-ref-data.sh"
 
       - name: Validate tag format
-        run: bash "${GITHUB_WORKFLOW}/.github/workflows/scripts/nuget/validate-tag-format.sh" "${{ env.GIT_TAG }}"
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/validate-tag-format.sh" "${{ env.GIT_TAG }}"
       
       - name: Checkout specific reference
         run: git checkout "$GIT_REFERENCE"
