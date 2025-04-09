@@ -62,7 +62,7 @@ jobs:
           NUGET_AUTH_TOKEN: ${{ secrets.SOFTOMNI_NUGET_KEY }}
 
       - name: Pack
-        run: dotnet pack --configuration Release --output ./artifacts
+        run: dotnet pack --configuration Release --no-build --output ./artifacts
 
       - name: Publish
         run: dotnet nuget push ./artifacts/*.nupkg \
