@@ -44,6 +44,15 @@ jobs:
       - name: Determine highest .NET version
         id: highest-dotnet
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-highest-version.sh"
+        
+      - name: Download build data
+        uses: actions/cache@v4
+        with: 
+          path: build-data.zip
+          key: build-artifacts-${{ env.GIT_REFERENCE }}
+          
+      - name: Extract build data
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-build-files.sh"
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
