@@ -40,7 +40,13 @@ jobs:
           
       - name: Check project version
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/check-project-version.sh" "${{ env.GIT_TAG }}"
-          
+        
+      - name: Download dotnet versions
+        uses: actions/cache@v4
+        with: 
+          path: dotnet-versions.txt
+          key: build-artifacts-${{ env.GIT_REFERENCE }}
+      
       - name: Determine highest .NET version
         id: highest-dotnet
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-highest-version.sh"

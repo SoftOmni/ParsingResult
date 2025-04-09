@@ -120,7 +120,13 @@ jobs:
 
       - name: Save .NET versions used
         run: echo "${{ matrix }}" >> dotnet-versions.txt
-          
+        
+      - name: Save .NET versions cache
+        uses: actions/cache@v4
+        with: 
+          path: "dotnet_version.txt"
+          key: dotnet-versions-${{ steps.tests.outputs.git-hash }}
+      
       - name: Upload build artifacts
         if: steps.tests.outcome == 'success'
         uses: actions/upload-artifact@v4
