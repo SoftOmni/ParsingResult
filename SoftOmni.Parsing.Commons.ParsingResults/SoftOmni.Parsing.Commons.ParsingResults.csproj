@@ -19,7 +19,7 @@
             It can however be used in any project that requires simple parsing result types.
         </Description>
         <RepositoryUrl>
-            https://github.com/SoftsLights/ParsingResult
+            https://github.com/SoftOmni/ParsingResult
         </RepositoryUrl>
         <RootNamespace>SoftOmni.Parsing.Commons.ParsingResults</RootNamespace>
     </PropertyGroup>
