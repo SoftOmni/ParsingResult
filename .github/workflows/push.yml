@@ -26,6 +26,11 @@ jobs:
         id: set-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-matrix.sh"
         
+      - name: Delete presently stored git reference artifact
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/delete-ref-cache.sh"
+        env:
+          GITHUB_BEARER_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
       - name: Git debug
         run: git describe --tags --exact-match 2>/dev/null || echo "No tag"
         shell: bash
@@ -121,12 +126,6 @@ jobs:
         run: |
           echo "Dotnet Version: ${{ matrix.dotnet_version }}"
           echo "Highest Version: ${{ needs.generate-test-matrix.outputs.dot_highest }}"
-      
-      - name: Delete presently stored git reference artifact
-        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/delete-ref-cache.sh"
-        env: 
-          GITHUB_BEARER_TOKEN : ${{ secrets.TOKEN_GITHUB }}
 
       - name: Publish test results artifact
         if: always()
