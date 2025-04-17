@@ -17,6 +17,7 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       highest: ${{ steps.set-matrix.outputs.highest }}
+      git-hash: ${{ steps.git-ref-data-save.outputs.GIT_HASH }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,6 +25,28 @@ jobs:
       - name: Generate .NET versions matrix and determine highest version
         id: set-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-matrix.sh"
+        
+      - name: Save git reference data into a file
+        id: git-ref-data-save
+        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/ref_saving.sh"
+        
+      - name: Publish git reference cache
+        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
+        uses: actions/cache@v4
+        with:
+          path: "github_refs.wd"
+          key: push-reference
+        
+      - name: Save .NET versions used
+        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
+        run: echo "${{ steps.set-matrix.outputs.matrix }}" >> dotnet-versions.txt
+
+      - name: Save .NET versions cache
+        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
+        uses: actions/cache@v4
+        with:
+          path: "dotnet-version.txt"
+          key: dotnet-versions-${{ steps.git-ref-data-save.outputs.GIT_HASH }}
 
   generate-test-matrix:
     runs-on: ubuntu-latest
@@ -32,6 +55,7 @@ jobs:
       test-matrix: ${{ steps.set-test-matrix.outputs.test-matrix }}
       highest: ${{ steps.sdk-version-highest.outputs.sdk_version }}
       dot_highest: ${{ steps.sdk-version-highest.outputs.dotnet_sdk_version }}
+      git-hash: ${{ needs.generate-matrix.outputs.git-hash }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,7 +82,7 @@ jobs:
       fail-fast: false
     outputs: 
       highest: ${{ needs.generate-test-matrix.outputs.dot_highest }}
-      git-hash: ${{ steps.git-ref-data-save.outputs.GIT_HASH }}
+      git-hash: ${{ needs.generate-test-matrix.outputs.git-hash }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -85,10 +109,6 @@ jobs:
         run: dotnet test --configuration Release --framework ${{ matrix.dotnet_version }} --logger "trx;LogFileName=${GITHUB_WORKSPACE}/test_results/${{ matrix.dotnet_version }}/test_results.trx"
         working-directory: ${{ env.PARENT_DIRECTORY }}
         id: tests
-
-      - name: Save git reference data into a file
-        id: git-ref-data-save
-        run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/ref_saving.sh"
         
       - name: Debug tree
         run: tree -a
@@ -103,13 +123,6 @@ jobs:
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/delete-ref-cache.sh"
         env: 
           GITHUB_BEARER_TOKEN : ${{ secrets.TOKEN_GITHUB }}
-      
-      - name: Publish git reference cache
-        if: matrix.dotnet_version == needs.generate-test-matrix.outputs.dot_highest
-        uses: actions/cache@v4
-        with:
-          path: "github_refs.wd"
-          key: push-reference
 
       - name: Publish test results artifact
         if: always()
@@ -117,15 +130,6 @@ jobs:
         with:
           name: test-results-${{ matrix.dotnet_version }}
           path: "test_results/${{ matrix.dotnet_version }}/*.trx"
-
-      - name: Save .NET versions used
-        run: echo "${{ matrix }}" >> dotnet-versions.txt
-        
-      - name: Save .NET versions cache
-        uses: actions/cache@v4
-        with: 
-          path: "dotnet-version.txt"
-          key: dotnet-versions-${{ steps.git-ref-data-save.outputs.GIT_HASH  }}
       
       - name: Upload build artifacts
         if: steps.tests.outcome == 'success'
