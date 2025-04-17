@@ -26,6 +26,10 @@ jobs:
         id: set-matrix
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/set-matrix.sh"
         
+      - name: Git debug
+        run: git describe --tags --exact-match 2>/dev/null || echo "No tag"
+        shell: bash
+        
       - name: Save git reference data into a file
         id: git-ref-data-save
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/push/ref_saving.sh"
