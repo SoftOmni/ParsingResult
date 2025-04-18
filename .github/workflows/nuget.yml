@@ -67,7 +67,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: ${{ steps.highest-dotnet.outputs.DOTNET_VERSION }}
+          dotnet-version: ${{ steps.highest-dotnet.outputs.ALL_DOTNET_VERSIONS_XY }}
         env:
           NUGET_AUTH_TOKEN: ${{ secrets.SOFTOMNI_NUGET_KEY }}
 
