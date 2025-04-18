@@ -36,7 +36,8 @@ if [ "$MODE" == "all" ]; then
   SEARCH_ROOT="." # Search from the current directory for the artifact roots
   # Path pattern to find the TFM-specific bin directories within any artifact root
   PATH_PATTERN="./${ARTIFACTS_ROOT_PATTERN}/*/bin/Release/net[0-9]*.[0-9]*"
-  OUTPUT_ZIP="release_bin_obj_files_all_versions.zip" # Updated zip name
+  # Adjusted zip name slightly to reflect content
+  OUTPUT_ZIP="release_bin_assets_files_all_versions.zip"
   REPORTING_VERSION_TEXT="all found versions"
 
   # Validate At Least One Artifacts Root Directory Exists
@@ -59,7 +60,8 @@ else # MODE == "single"
 
   DOTNET_VERSION="$DOTNET_VERSION_ARG"
   ARTIFACTS_ROOT_DIR="build-artifacts-${DOTNET_VERSION}"
-  OUTPUT_ZIP="release_bin_obj_files_${DOTNET_VERSION}.zip" # Updated zip name
+  # Adjusted zip name slightly to reflect content
+  OUTPUT_ZIP="release_bin_assets_files_${DOTNET_VERSION}.zip"
   REPORTING_VERSION_TEXT="target framework '${DOTNET_VERSION}'"
   SEARCH_ROOT="${ARTIFACTS_ROOT_DIR}" # Search within the specific artifact root
   # Path pattern relative to the specific artifact root dir
@@ -104,71 +106,65 @@ while IFS= read -r -d $'\0' source_bin_dir; do
     fi
 
     # --- Locate Source Project Directory (in the main workspace) ---
-    # Assumes this script runs from the repository root
     source_project_root="${SCRIPT_START_DIR}/${project_name}"
     if [ ! -d "$source_project_root" ]; then
-        echo "Warning: Source project directory not found at '${source_project_root}'. Cannot package obj folder. Skipping project '${project_name}'."
+        echo "Warning: Source project directory not found at '${source_project_root}'. Cannot package assets file. Skipping project '${project_name}'."
         continue
     fi
     echo "Info: Located source project directory: ${source_project_root}"
 
     # --- Define Destination Paths within TEMP_DIR ---
     # Structure: TEMP_DIR/ProjectName/bin/Release/netX.Y/*
-    #            TEMP_DIR/ProjectName/obj/*
+    #            TEMP_DIR/ProjectName/obj/project.assets.json
     dest_root_in_temp="${TEMP_DIR}/${project_name}"
     dest_bin_dir="${dest_root_in_temp}/bin/Release/${source_dotnet_version}"
-    dest_obj_dir="${dest_root_in_temp}/obj"
+    dest_obj_dir="${dest_root_in_temp}/obj" # We still need the obj dir structure
 
     # --- Package bin/Release Contents ---
+    bin_copied=false
     if [ -d "$source_bin_dir" ] && [ "$(ls -A "$source_bin_dir")" ]; then
         echo "Info: Preparing destination bin directory: ${dest_bin_dir}"
         mkdir -p "$dest_bin_dir"
 
         echo "Info: Copying bin artifacts from ${source_bin_dir} to ${dest_bin_dir}"
-        if ! cp -a "$source_bin_dir/." "$dest_bin_dir/"; then
-             echo "Error: Failed to copy bin files from ${source_bin_dir}"
-             exit 1 # Let trap handle cleanup
-        fi
+        cp -a "$source_bin_dir/." "$dest_bin_dir/" # Set -e handles errors
+        bin_copied=true
     else
         echo "Warning: Artifact bin directory '${source_bin_dir}' is empty or missing for project '${project_name}'. Skipping bin packaging for this TFM."
-        # Continue to attempt packaging obj
+        # Continue to attempt packaging assets file
     fi
 
-    # --- Package obj Contents (from source project root) ---
-    source_obj_dir="${source_project_root}/obj"
-    if [ -d "$source_obj_dir" ]; then
-        if [ "$(ls -A "$source_obj_dir")" ]; then
-            echo "Info: Preparing destination obj directory: ${dest_obj_dir}"
-            # Only create obj dest dir if source exists and is not empty
-            mkdir -p "$dest_obj_dir"
+    # --- Package obj/project.assets.json (from source project root) ---
+    assets_copied=false
+    source_assets_file="${source_project_root}/obj/project.assets.json"
 
-            echo "Info: Copying obj files from ${source_obj_dir} to ${dest_obj_dir}"
-            if ! cp -a "$source_obj_dir/." "$dest_obj_dir/"; then
-                echo "Error: Failed to copy obj files from ${source_obj_dir}"
-                exit 1 # Let trap handle cleanup
-            fi
-            # Increment packaged count only once per project, e.g., if bin was packaged
-            if [ -d "$dest_bin_dir" ]; then # Check if bin was copied successfully before incrementing
-                 projects_packaged=$((projects_packaged + 1))
-            elif [ -d "$dest_obj_dir" ]; then # Increment if only obj was copied (less likely case)
-                 projects_packaged=$((projects_packaged + 1))
-            fi
-        else
-            echo "Info: Source obj directory '${source_obj_dir}' is empty. Skipping obj packaging."
-        fi
+    if [ -f "$source_assets_file" ]; then
+        echo "Info: Found source assets file: ${source_assets_file}"
+
+        # Ensure the destination obj directory exists in the temp structure
+        echo "Info: Preparing destination obj directory for assets file: ${dest_obj_dir}"
+        mkdir -p "$dest_obj_dir"
+
+        echo "Info: Copying ${source_assets_file} to ${dest_obj_dir}"
+        cp -a "$source_assets_file" "$dest_obj_dir/" # Set -e handles errors
+        assets_copied=true
     else
-        echo "Info: Source obj directory '${source_obj_dir}' not found. Skipping obj packaging."
-        # Still count the project if bin was packaged
-        if [ -d "$dest_bin_dir" ] && [ "$(ls -A "$dest_bin_dir")" ]; then
-             projects_packaged=$((projects_packaged + 1))
-        fi
-
+        echo "Info: Source assets file '${source_assets_file}' not found. Skipping asset file packaging."
+        # This is not necessarily an error, pack might still work if dependencies are simple or already resolved
     fi
+
+    # --- Increment Packaged Count ---
+    # Count the project if we successfully copied EITHER bin artifacts OR the assets file
+    if [ "$bin_copied" = true ] || [ "$assets_copied" = true ]; then
+        projects_packaged=$((projects_packaged + 1))
+        echo "Info: Successfully packaged artifacts (bin and/or assets) for ${project_name} (${source_dotnet_version})."
+    else
+         echo "Warning: Neither bin artifacts nor project.assets.json were found/copied for ${project_name} (${source_dotnet_version})."
+    fi
+
     echo "--- Finished processing project: ${project_name} (${source_dotnet_version}) ---"
 
 # Find command adjusted slightly: using -path requires full pattern match including ./
-# Use -wholename which is often clearer for full path patterns
-# Use -path instead of -wholename for compatibility
 done < <(find "${SEARCH_ROOT}" -type d -path "${PATH_PATTERN}" -print0)
 
 
@@ -176,9 +172,9 @@ echo "Info: Total potential project artifact bin directories found matching patt
 
 # --- Create Zip File ---
 if [ "$projects_packaged" -gt 0 ]; then
-    echo "Info: Packaged artifacts from ${projects_packaged} non-test projects."
+    echo "Info: Packaged artifacts (bin/assets) from ${projects_packaged} non-test project locations."
     echo "Info: Creating zip file: ${OUTPUT_ZIP}"
-    # Zip contents of TEMP_DIR, preserving the structure (ProjectName/bin..., ProjectName/obj...)
+    # Zip contents of TEMP_DIR, preserving the structure
     if (cd "$TEMP_DIR" && zip -rq "${SCRIPT_START_DIR}/${OUTPUT_ZIP}" .); then
         echo "Success: Created zip file: ${SCRIPT_START_DIR}/${OUTPUT_ZIP}"
     else
@@ -186,9 +182,9 @@ if [ "$projects_packaged" -gt 0 ]; then
         exit 1
     fi
 else
-    echo "Warning: No artifacts (bin or obj) were packaged for any non-test projects."
+    echo "Warning: No artifacts (bin or obj/project.assets.json) were packaged for any non-test projects."
     echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for ${REPORTING_VERSION_TEXT}, producing output in '${ARTIFACTS_ROOT_DIR:-${ARTIFACTS_ROOT_PATTERN}}'."
-    echo "Warning: Ensure source project directories exist at the expected location (${SCRIPT_START_DIR}/ProjectName)."
+    echo "Warning: Ensure source project directories and potentially 'obj/project.assets.json' exist at the expected location (${SCRIPT_START_DIR}/ProjectName)."
     echo "Warning: No zip file created."
     # Exit with success code 0 as no error occurred, just nothing to package
     exit 0
