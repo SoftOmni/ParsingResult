@@ -46,65 +46,69 @@ if ! jq -e --arg key "$JSON_KEY" 'has($key) and (.[$key] | type == "array")' "$F
 fi
 echo "Info: JSON key \"${JSON_KEY}\" exists and is an array."
 
-# --- Find Highest Valid Version ---
+# --- Find Highest Valid Version (netX.Y or netX.Y.Z) ---
 
-# Regex to match .NET versions like netX.Y or netX.Y.Z (more flexible)
+# Regex to match .NET versions like netX.Y or netX.Y.Z
 # Anchored (^$) to ensure the whole string matches
-# Allows for single or multi-digit major/minor versions
-# netX.Y format: ^net[0-9]+\.[0-9]+$
-# netX.Y.Z format: ^net[0-9]+\.[0-9]+\.[0-9]+$ (unlikely for SDK target frameworks, but possible)
-# Combined (optional patch): ^net[0-9]+\.[0-9]+(\.[0-9]+)?$
-version_regex='^net[0-9]+\.[0-9]+$' # Sticking to netX.Y as per example
+# Allows for single or multi-digit major/minor/patch versions
+version_regex='^net[0-9]+\.[0-9]+(\.[0-9]+)?$'
 
 # 1. Use jq to extract the raw strings from the array under the specified key.
 # 2. Filter the extracted lines for those matching the version format using grep.
 # 3. Sort the valid versions using version sort (-V) in reverse order (-r).
 # 4. Take the first line (which is the highest version) using head.
 #
-# If 'jq' fails (e.g., file not JSON, key missing), script exits due to 'set -e'.
-# If 'grep' finds no matching lines, it exits with status 1.
-# Because 'set -o pipefail' is active, the non-zero exit status of grep
-# will cause the entire pipeline (and thus the script, due to 'set -e') to fail *if* no valid versions are found.
-# We add an explicit check later for clarity and a better error message.
+# Handles potential grep failure explicitly after the pipeline.
 
-# Use a temporary variable to store the result, handling potential grep failure more explicitly
 extracted_versions=$(jq -r --arg key "$JSON_KEY" '.[$key][]' "$FILENAME")
 if [ -z "$extracted_versions" ]; then
     echo "Info: The array under key \"${JSON_KEY}\" in ${FILENAME} is empty. No versions to process."
-    # Depending on requirements, you might want to exit here or proceed (resulting in "No valid versions found" later)
-    # exit 0 # Or exit 1 if an empty array is an error
+    # Setting HIGHEST_NET_VERSION to empty will trigger the error check below
+    HIGHEST_NET_VERSION=""
+else
+    # Filter, sort, and get the highest net version (netX.Y or netX.Y.Z)
+    # Use || true for grep/sort/head to prevent script exit if no match, handle empty result explicitly
+    HIGHEST_NET_VERSION=$(echo "$extracted_versions" | grep -E "$version_regex" | sort -Vr | head -n 1 || true)
 fi
-
-# Now filter, sort, and get the highest
-# Use || true for grep to prevent script exit if no match, handle empty result explicitly
-HIGHEST_VERSION=$(echo "$extracted_versions" | grep -E "$version_regex" | sort -Vr | head -n 1 || true)
 
 
 # Explicit check for whether a valid version was found after filtering/sorting
-if [ -z "$HIGHEST_VERSION" ]; then
+if [ -z "$HIGHEST_NET_VERSION" ]; then
   echo "Error: No valid versions matching the format '${version_regex}' found under key \"${JSON_KEY}\" in ${FILENAME}."
   exit 1
 fi
 
-# Final sanity check on the format (mostly redundant due to grep, but good practice)
-if ! [[ "$HIGHEST_VERSION" =~ $version_regex ]]; then
-  # This case should theoretically not be reached if grep worked correctly
-  echo "Error: Internal inconsistency. Found version '$HIGHEST_VERSION' does not match expected format '${version_regex}' after filtering."
-  exit 1
+echo "Info: Highest raw version found: ${HIGHEST_NET_VERSION}"
+
+# --- Convert Highest Version to X.Y.Z Format ---
+# Strip the leading 'net'
+VERSION_NUMERIC_PART=$(echo "$HIGHEST_NET_VERSION" | sed 's/^net//') # e.g., "9.0" or "8.0.100"
+
+# Check if it already has a patch version (two dots)
+if [[ "$VERSION_NUMERIC_PART" == *.*.* ]]; then
+    # Already X.Y.Z format
+    HIGHEST_XYZ_VERSION="$VERSION_NUMERIC_PART"
+elif [[ "$VERSION_NUMERIC_PART" == *.* ]]; then
+    # It's X.Y format, append .0
+    HIGHEST_XYZ_VERSION="${VERSION_NUMERIC_PART}.0"
+else
+    # This case should be unlikely if the regex worked, but provides safety
+    echo "Error: Could not parse version part '$VERSION_NUMERIC_PART' from '$HIGHEST_NET_VERSION' into X.Y or X.Y.Z format after stripping 'net'."
+    exit 1
 fi
 
-echo "Highest valid .NET version found: $HIGHEST_VERSION"
+echo "Highest valid .NET version (formatted as X.Y.Z): $HIGHEST_XYZ_VERSION"
 
 # --- Export Variable ---
 # Check if GITHUB_ENV is set and is a file (standard in GitHub Actions)
 if [ -z "$GITHUB_ENV" ] || [ ! -f "$GITHUB_ENV" ]; then
     echo "Warning: GITHUB_ENV environment variable is not set or not a file. Skipping export."
-    echo "Would have exported: DOTNET_VERSION=${HIGHEST_VERSION}"
+    echo "Would have exported: DOTNET_VERSION=${HIGHEST_XYZ_VERSION}"
 else
-    echo "Info: Exporting DOTNET_VERSION=${HIGHEST_VERSION} to ${GITHUB_ENV}"
+    echo "Info: Exporting DOTNET_VERSION=${HIGHEST_XYZ_VERSION} to ${GITHUB_ENV}"
     # Append the variable in the format required by GitHub Actions
-    echo "DOTNET_VERSION=${HIGHEST_VERSION}" >> "${GITHUB_ENV}"
-    echo "Exported: DOTNET_VERSION=${HIGHEST_VERSION}"
+    echo "DOTNET_VERSION=${HIGHEST_XYZ_VERSION}" >> "${GITHUB_ENV}"
+    echo "Exported: DOTNET_VERSION=${HIGHEST_XYZ_VERSION}"
 fi
 
 echo "Script finished successfully."
