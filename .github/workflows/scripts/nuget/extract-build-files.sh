@@ -9,7 +9,7 @@ set -e
 set -o pipefail
 
 # --- Variables ---
-ARCHIVE_NAME="build-data.zip"
+ARCHIVE_NAME="release_bin_files_all_versions.zip"
 WORKSPACE_DIR=$(pwd) # Should be the root of the checkout
 
 echo "Info: Starting build artifact extraction process."
