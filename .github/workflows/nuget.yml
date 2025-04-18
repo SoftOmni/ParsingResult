@@ -57,12 +57,12 @@ jobs:
           path: release_bin_obj_files_all_versions.zip
           key: build-artifacts-${{ env.GIT_REFERENCE }}
           
-      - name: Debug tree
-        run: tree -a
-        shell: bash
-          
       - name: Extract build data
         run: bash "${GITHUB_WORKSPACE}/.github/workflows/scripts/nuget/extract-build-files.sh"
+        
+      - name: Debug tree
+        run: tree -a
+        shell: bash  
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
