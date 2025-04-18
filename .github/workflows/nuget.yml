@@ -73,7 +73,11 @@ jobs:
 
       - name: Pack
         run: dotnet pack --configuration Release --no-build --output ./artifacts
-
+        
+      - name: Debug tree
+        run: tree -a
+        shell: bash
+      
       - name: Publish
         run: dotnet nuget push ./artifacts/*.nupkg \
           --api-key ${{ secrets.SOFTOMNI_NUGET_KEY }} \
