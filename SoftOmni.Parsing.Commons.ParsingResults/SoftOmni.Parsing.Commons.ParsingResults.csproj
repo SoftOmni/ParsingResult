@@ -4,6 +4,7 @@
         <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>SoftOmni.Parsing.Commons.ParsingResults</RootNamespace>
 
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageId>SoftOmni.Parsing.Commons.ParsingResults</PackageId>
@@ -21,7 +22,6 @@
         <RepositoryUrl>
             https://github.com/SoftOmni/ParsingResult
         </RepositoryUrl>
-        <RootNamespace>SoftOmni.Parsing.Commons.ParsingResults</RootNamespace>
     </PropertyGroup>
 
 </Project>
