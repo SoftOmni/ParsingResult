@@ -134,8 +134,8 @@ jobs:
         with:
           name: build-artifacts-${{ matrix.dotnet_version }}
           path: |
-            - **/bin/Release/
-            - **/obj/**
+            **/bin/Release/
+            **/obj/project.assets.json
           retention-days: 1
 
       - name: Report test results
