@@ -20,7 +20,7 @@ else
 fi
 
 # --- Variable Initialization ---
-SCRIPT_START_DIR=$(pwd) # Remember where we started (should be repo root)
+SCRIPT_START_DIR=$(pwd) # Remember where we started (primarily for placing the final zip)
 projects_packaged=0
 total_projects_found_in_artifacts=0
 
@@ -43,7 +43,7 @@ if [ "$MODE" == "all" ]; then
   # Validate At Least One Artifacts Root Directory Exists
   if ! find . -maxdepth 1 -type d -name "${ARTIFACTS_ROOT_PATTERN}" -print -quit | grep -q .; then
     echo "Error: No artifact root directories matching '${ARTIFACTS_ROOT_PATTERN}' found in the current directory (${SCRIPT_START_DIR})."
-    echo "Error: Please ensure artifacts have been downloaded or built correctly using --output."
+    echo "Error: Please ensure artifacts have been downloaded or built correctly (containing bin and potentially obj)."
     exit 1
   fi
   echo "Info: Searching for artifacts across all roots matching: ${ARTIFACTS_ROOT_PATTERN}"
@@ -73,7 +73,7 @@ else # MODE == "single"
   # Validate Specific Artifacts Root Directory
   if [ ! -d "${ARTIFACTS_ROOT_DIR}" ]; then
     echo "Error: Artifacts root directory '${ARTIFACTS_ROOT_DIR}' not found in (${SCRIPT_START_DIR})."
-    echo "Error: Please ensure the projects have been built using 'dotnet build --output ${ARTIFACTS_ROOT_DIR}'."
+    echo "Error: Please ensure the artifacts have been downloaded or built correctly (containing bin and potentially obj)."
     exit 1
   fi
 fi
@@ -89,7 +89,8 @@ while IFS= read -r -d $'\0' source_bin_dir; do
 
     total_projects_found_in_artifacts=$((total_projects_found_in_artifacts + 1))
 
-    # Extract the project name. Works by navigating up from bin/Release/netX.Y
+    # Extract the project name directory *within the artifact structure*
+    # e.g., build-artifacts-net8.0/MyProject
     project_artifact_dir=$(dirname "$(dirname "$(dirname "$source_bin_dir")")")
     project_name=$(basename "$project_artifact_dir")
 
@@ -98,6 +99,7 @@ while IFS= read -r -d $'\0' source_bin_dir; do
 
     echo "--- Processing Project: ${project_name} (${source_dotnet_version}) ---"
     echo "Info: Found artifact bin directory: ${source_bin_dir}"
+    echo "Info: Corresponding project root within artifacts: ${project_artifact_dir}"
 
     # --- Filter out Test Projects ---
     if [[ "$project_name" =~ \.[Tt]ests?$ || "$project_name" == *[Tt]est* ]]; then
@@ -105,20 +107,12 @@ while IFS= read -r -d $'\0' source_bin_dir; do
         continue # Skip to the next found directory
     fi
 
-    # --- Locate Source Project Directory (in the main workspace) ---
-    source_project_root="${SCRIPT_START_DIR}/${project_name}"
-    if [ ! -d "$source_project_root" ]; then
-        echo "Warning: Source project directory not found at '${source_project_root}'. Cannot package assets file. Skipping project '${project_name}'."
-        continue
-    fi
-    echo "Info: Located source project directory: ${source_project_root}"
-
     # --- Define Destination Paths within TEMP_DIR ---
     # Structure: TEMP_DIR/ProjectName/bin/Release/netX.Y/*
     #            TEMP_DIR/ProjectName/obj/project.assets.json
     dest_root_in_temp="${TEMP_DIR}/${project_name}"
     dest_bin_dir="${dest_root_in_temp}/bin/Release/${source_dotnet_version}"
-    dest_obj_dir="${dest_root_in_temp}/obj" # We still need the obj dir structure
+    dest_obj_dir="${dest_root_in_temp}/obj" # We still need the obj dir structure in temp
 
     # --- Package bin/Release Contents ---
     bin_copied=false
@@ -134,12 +128,13 @@ while IFS= read -r -d $'\0' source_bin_dir; do
         # Continue to attempt packaging assets file
     fi
 
-    # --- Package obj/project.assets.json (from source project root) ---
+    # --- Package obj/project.assets.json (from ARTIFACT project root) ---
     assets_copied=false
-    source_assets_file="${source_project_root}/obj/project.assets.json"
+    # Construct path to assets file *within the artifact structure*
+    source_assets_file="${project_artifact_dir}/obj/project.assets.json"
 
     if [ -f "$source_assets_file" ]; then
-        echo "Info: Found source assets file: ${source_assets_file}"
+        echo "Info: Found source assets file within artifact structure: ${source_assets_file}"
 
         # Ensure the destination obj directory exists in the temp structure
         echo "Info: Preparing destination obj directory for assets file: ${dest_obj_dir}"
@@ -149,7 +144,7 @@ while IFS= read -r -d $'\0' source_bin_dir; do
         cp -a "$source_assets_file" "$dest_obj_dir/" # Set -e handles errors
         assets_copied=true
     else
-        echo "Info: Source assets file '${source_assets_file}' not found. Skipping asset file packaging."
+        echo "Info: Source assets file '${source_assets_file}' not found within artifact structure. Skipping asset file packaging."
         # This is not necessarily an error, pack might still work if dependencies are simple or already resolved
     fi
 
@@ -159,7 +154,7 @@ while IFS= read -r -d $'\0' source_bin_dir; do
         projects_packaged=$((projects_packaged + 1))
         echo "Info: Successfully packaged artifacts (bin and/or assets) for ${project_name} (${source_dotnet_version})."
     else
-         echo "Warning: Neither bin artifacts nor project.assets.json were found/copied for ${project_name} (${source_dotnet_version})."
+         echo "Warning: Neither bin artifacts nor project.assets.json were found/copied for ${project_name} (${source_dotnet_version}) from artifact structure."
     fi
 
     echo "--- Finished processing project: ${project_name} (${source_dotnet_version}) ---"
@@ -182,9 +177,8 @@ if [ "$projects_packaged" -gt 0 ]; then
         exit 1
     fi
 else
-    echo "Warning: No artifacts (bin or obj/project.assets.json) were packaged for any non-test projects."
-    echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for ${REPORTING_VERSION_TEXT}, producing output in '${ARTIFACTS_ROOT_DIR:-${ARTIFACTS_ROOT_PATTERN}}'."
-    echo "Warning: Ensure source project directories and potentially 'obj/project.assets.json' exist at the expected location (${SCRIPT_START_DIR}/ProjectName)."
+    echo "Warning: No artifacts (bin or obj/project.assets.json) were packaged for any non-test projects from the artifact structure."
+    echo "Warning: Ensure the relevant projects have been built successfully in 'Release' configuration for ${REPORTING_VERSION_TEXT}, producing output (including obj/project.assets.json) in '${ARTIFACTS_ROOT_DIR:-${ARTIFACTS_ROOT_PATTERN}}'."
     echo "Warning: No zip file created."
     # Exit with success code 0 as no error occurred, just nothing to package
     exit 0
