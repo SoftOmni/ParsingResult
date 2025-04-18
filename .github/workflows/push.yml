@@ -121,10 +121,6 @@ jobs:
 
       - name: Save .NET versions used
         run: echo '${{ needs.generate-test-matrix.outputs.matrix }}' >> ${GITHUB_WORKSPACE}/dotnet-versions.txt
-        
-      - name: Debug tree
-        run: tree
-        shell: bash
 
       - name: Save .NET versions cache
         uses: actions/cache@v4
