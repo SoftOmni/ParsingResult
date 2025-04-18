@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache@v4
         with: 
           path: dotnet-versions.txt
-          key: build-artifacts-${{ env.GIT_REFERENCE }}
+          key: dotnet-versions-${{ env.GIT_REFERENCE }}
       
       - name: Determine highest .NET version
         id: highest-dotnet
