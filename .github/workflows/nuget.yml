@@ -77,8 +77,20 @@ jobs:
       - name: Debug tree
         run: tree -a
         shell: bash
+        
+      - name: Debug Push Command Arguments (Masked Key)
+        run: |
+          echo "Command arguments verification:"
+          # Use printf to avoid echo interpretation issues, mask the key
+          printf "Arg 1: %s\n" "dotnet"
+          printf "Arg 2: %s\n" "nuget"
+          printf "Arg 3: %s\n" "push"
+          printf "Arg 4: %s\n" "./artifacts/*.nupkg" # Note: Shell expands this later
+          printf "Arg 5: %s\n" "--api-key"
+          printf "Arg 6: %s\n" "***MASKED***"
+          printf "Arg 7: %s\n" "--source"
+          printf "Arg 8: %s\n" "https://api.nuget.org/v3/index.json"
+            
       
       - name: Publish
-        run: dotnet nuget push ./artifacts/*.nupkg \
-          --api-key ${{ secrets.SOFTOMNI_NUGET_KEY }} \
-          --source https://api.nuget.org/v3/index.json
+        run: dotnet nuget push ./artifacts/*.nupkg --api-key ${{ secrets.SOFTOMNI_NUGET_KEY }} --source https://api.nuget.org/v3/index.json
