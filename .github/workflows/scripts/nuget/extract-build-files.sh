@@ -10,7 +10,7 @@ set -o pipefail
 
 # --- Variables ---
 # Adjust archive name pattern if needed, this matches both single and all
-ARCHIVE_PATTERN="release_bin_files_all_versions.zip"
+ARCHIVE_PATTERN="release_bin_obj_files_all_versions.zip"
 WORKSPACE_DIR=$(pwd) # Should be the root of the checkout
 
 echo "Info: Starting build artifact extraction process."

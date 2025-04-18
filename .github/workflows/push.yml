@@ -167,5 +167,5 @@ jobs:
         if: needs.test.result == 'success'
         uses: actions/cache@v4
         with:
-          path: release_bin_files_all_versions.zip
+          path: release_bin_obj_files_all_versions.zip
           key: build-artifacts-${{ needs.test.outputs.git-hash }}
