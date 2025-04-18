@@ -8,7 +8,7 @@
 
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageId>SoftOmni.Parsing.Commons.ParsingResults</PackageId>
-        <Version>0.2.27</Version>
+        <Version>0.2.28</Version>
         <Authors>Jascha MERLE</Authors>
         <Description>
             This is a library that provides simple parsing result types.
