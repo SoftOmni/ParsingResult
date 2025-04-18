@@ -129,7 +129,7 @@ jobs:
       - name: Save .NET versions cache
         uses: actions/cache@v4
         with:
-          path: "dotnet-version.txt"
+          path: "dotnet-versions.txt"
           key: dotnet-versions-${{ steps.git-ref-data-save.outputs.GIT_HASH  }}
 
       - name: Upload build artifacts
